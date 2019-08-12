@@ -7,6 +7,7 @@ with builtins;
 let
   recImport = with lib;
   let
+    # get list of paths ready to be converted to attrs
     prepAttr = fullPath:
     if pathType fullPath == "regular"
     # import contents of ".nix" files
@@ -20,6 +21,7 @@ let
           value = import fullPath args;
         }
       else
+      # or simply readFile literally if its not a .nix file
         { name = ( baseNameOf fullPath );
           value = readFile fullPath;
         }
@@ -32,16 +34,19 @@ let
     toFullPath = dirname: basename:
     dirname + "/${basename}";
 
+    # function to apply filter rules
     applyFilter = dir:
     attrsets.filterAttrs
       ( filterRules dir )
       ( readDir dir );
 
+    # filter rules to be applied
     filterRules = dir: n: v:
     !  ( strings.hasPrefix "." n )
     && (
       ( ( v == "directory"
-          && ( filterAttrs ( dir + "/${n}" ) != {} )
+          # check subdirs recursively for same rules
+          && ( applyFilter ( dir + "/${n}" ) != {} )
         )
         && n != "unused"
         && ! strings.hasInfix "." n
@@ -49,16 +54,18 @@ let
       || (
         v == "regular"
         && n != "default.nix"
-        && n != "recImport.nix"
       )
     );
     # if there is both a .nix file and directory of same name merge the two
     ifDuplicate =
     let
+      # get list of qualifying files
       list = dir:
       map (strings.removeSuffix ".nix")
         (attrNames ( applyFilter dir) );
 
+      # filter list to include one instance per item that had duplicates in
+      # the input and dropping any item that does not have a duplicate
       duplicates = with lists; list:
       if list == [] then
         []
@@ -71,6 +78,8 @@ let
           then [x] ++ remove x xs
           else xs;
 
+      # function to mapped on duplicates list to prepare a final attrs to be
+      # merged with the original
       modifySet = set: dir: attr:
         { name = "${attr}";
           value = set."${attr}"
@@ -84,15 +93,19 @@ let
       else set
         // listToAttrs ( map ( modifySet set dir )
           ( duplicates ( list dir ) ));
-  in
-  dir:
-  ifDuplicate ( listToAttrs (
-    map prepAttr
+
+    # fist pass before checking for duplicates
+    firstPass = dir: listToAttrs (
+      map prepAttr
       ( map ( toFullPath dir )
           ( attrNames
             ( applyFilter dir )
           )
       )
-  )) dir;
+    );
+
+  in
+  dir:
+  ifDuplicate ( firstPass dir )  dir;
 in
   recImport
