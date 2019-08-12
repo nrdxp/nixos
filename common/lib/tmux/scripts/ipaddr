@@ -1,0 +1,38 @@
+#!/usr/bin/env zsh
+if ! dig +short +timeout=1 +tries=1 \
+    myip.opendns.com @208.67.222.222 2>&1 \
+  | grep -E '[0-9]*\.[[0-9]*\.[0-9]*\.[0-9]*' \
+  | read ip_address
+
+then
+  printf "✘" # \u2718
+
+else
+  if iwconfig 2>&1 \
+    | grep -Eo "Link Quality=.{5}" \
+    | awk -F= '{print $2}' \
+    | read signal_percentage
+
+  then
+    signal_percentage=$(( $signal_percentage.0 * 100 ))
+
+    if [[ $signal_percentage -lt 25 ]]; then
+      signal_strength="▂___"
+    elif [[ $signal_percentage -lt 50 ]]; then
+      signal_strength="▂▄__"
+    elif [[ $signal_percentage -lt 75 ]]; then
+      signal_strength="▂▄▆_"
+    else
+      signal_strength="▂▄▆█"
+    fi
+
+    if nmcli con show | grep tun0 &> /dev/null; then
+      printf "🔑$signal_strength"
+    else
+      printf "📡$signal_strength"
+    fi
+  else
+    printf "$ip_address"
+
+  fi
+fi

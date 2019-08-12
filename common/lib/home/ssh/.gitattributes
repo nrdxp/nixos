@@ -1,0 +1,2 @@
+github* filter=git-crypt diff=git-crypt
+gitlab* filter=git-crypt diff=git-crypt

@@ -1,0 +1,20 @@
+# GitLab.com server
+Host gitlab.com
+AddKeysToAgent yes
+IdentityFile ~/.ssh/gitlab
+
+# Private GitLab server
+Host gitlab.company.com
+AddKeysToAgent yes
+IdentityFile ~/.ssh/gitlab
+
+# GitHub server
+Host github.com
+AddKeysToAgent yes
+IdentityFile ~/.ssh/github
+
+Host router
+  HostName 192.168.8.1
+  User root
+  Port 37658
+  IdentityFile ~/.ssh/router

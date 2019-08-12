@@ -1,0 +1,6 @@
+#!/usr/bin/env zsh
+editor_command="nvim -c 'normal $2' -- $1"
+zsh -c "tmux new-window -t $USER -- $editor_command
+  while pgrep -f '${editor_command//\'}' ; do
+    sleep 5
+  done"

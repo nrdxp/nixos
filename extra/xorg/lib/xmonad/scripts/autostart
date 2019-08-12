@@ -1,0 +1,19 @@
+#!/usr/bin/env zsh
+
+terminal="st"
+
+# set screen locker to slock
+pgrep -x xss-lock \
+|| xss-lock slock&!
+
+if ! pgrep -x ${terminal}; then
+  if ! tmux has-session -t$(whoami); then
+    ${terminal} -e tmux new-session -s $(whoami)&!
+  else
+    ${terminal} -e zsh -c "source ~/.base16_theme; exec tmux attach-session -t $(whoami)"&!
+  fi
+fi
+
+if ! pgrep -f qutebrowser; then
+  ${BROWSER} &!
+fi

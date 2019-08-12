@@ -1,0 +1,8 @@
+[user]
+  email = tim.deh@pm.me
+  name = Timothy DeHerrera
+  signingkey = 8985725DB5B0C122
+[color]
+  ui = auto
+[commit]
+  gpgsign = yes

@@ -1,0 +1,4 @@
+{ ... }:
+{ hideProcessInformation = true;
+  protectKernelImage     = true;
+}
