@@ -1,7 +1,7 @@
 NixOS configuration
 -------------------
 
-herein lies my configuration files for NixOS. You can easily pick and choose 
+Herein lies my configuration files for NixOS. You can easily pick and choose 
 optional components from the `extra` and `abstract` folders by including them in
 `configuration.nix`. I also have device specific configurations under the devices
 folder. You must pick one device configuration or generate your own.
