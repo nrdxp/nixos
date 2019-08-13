@@ -1,11 +1,6 @@
 { usr, lib, ... }:
 self: super: rec
-{
-  delimitMate = super.callPackage
-    ./pkgs/delimitmate.nix {}
-  ;
-
-  neovim = super.neovim.override
+{ neovim = super.neovim.override
   { configure =
     { customRC = with lib; with builtins;
       let
@@ -17,7 +12,7 @@ self: super: rec
           pluginRCs
         ];
 
-      packages.nvimPackage = with self.vimPlugins;
+      packages.nvimPackage = with super.vimPlugins;
       { start =
           [ base16-vim    vim-polyglot   airline
             deoplete-nvim neco-syntax    vim-airline-themes
