@@ -6,8 +6,7 @@
   { enable   = true;
     settings =
     { download-dir = "/srv/torrents/";
-      incomplete-dir = "/srv/torrents/.incomplete/";
-      incomplete-dir-enabled = true;
+      incomplete-dir-enabled = false;
       rpc-whitelist = "127.0.0.1,192.168.8.*";
       rpc-whitelist-enabled = true;
       peer-port-random-on-start = true;
@@ -16,4 +15,6 @@
       utp-enabled = false;
     };
   };
+
+  users.users.nrd.extraGroups = [ "transmission" ];
 }
