@@ -17,3 +17,6 @@ same way as traditional imports. e.g. `{ pkgs, ... }:` at the top of the file.
 This function lives at `fn/recImport.nix`.
 
 Other then that, please excuse my mess and feel free to look around.
+
+Disclaimer:
+May not work without my fork of nixpkgs
