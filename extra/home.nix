@@ -28,6 +28,10 @@
         ".local/share/qutebrowser/userscripts".source =
         ../usr/qutebrowser/scripts;
 
+        ".xinitrc" =
+        { text = "exec xmonad";
+        };
+
         ".config/qutebrowser/config.py" =
         {
           text = "config.source('/etc/qutebrowser/config.py')";

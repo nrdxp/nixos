@@ -3,7 +3,8 @@
 args@{ pkgs, usr, ... }:
 let recImport = import ../fn/recImport.nix args;
 in
-{ fonts.fonts = [ pkgs.nerdfonts ];
+{ imports = [ ./home.nix ];
+  fonts.fonts = [ pkgs.nerdfonts ];
 
   programs.slock.enable = true;
 
