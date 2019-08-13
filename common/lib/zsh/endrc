@@ -48,9 +48,9 @@ man () {
   command man "$@"
 }
 
-nixos () {
-  cd ~nixos
-}
+# so completion works
+nixos () { ~nixos }
+nixpkgs () { ~nixpkgs }
 
 aliases () {
   aliases_=( $(grep '^alias ' /etc/zshrc | awk '{print $2}' | awk -F= '{print $1}') )

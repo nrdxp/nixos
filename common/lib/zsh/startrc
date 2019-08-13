@@ -9,6 +9,8 @@ hash -d \
   dl=~/Downloads \
   git=~/git
 
+hash -d nixpkgs=~git/nixpkgs
+
 
 
 # thefuck setup
