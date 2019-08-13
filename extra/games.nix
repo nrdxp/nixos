@@ -2,6 +2,9 @@
 { environment.systemPackages = with pkgs;
   [ retroarchBare black_chocobo steam ];
 
+  # fps games on laptop need this
+  services.xserver.libinput.disableWhileType = false;
+
   # 32-bit support needed for steam
   hardware.opengl.driSupport32Bit = true;
   hardware.pulseaudio.support32Bit = true;
