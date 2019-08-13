@@ -3,7 +3,7 @@
   [ retroarchBare black_chocobo steam ];
 
   # fps games on laptop need this
-  services.xserver.libinput.disableWhileType = false;
+  services.xserver.libinput.disableWhileTyping = false;
 
   # 32-bit support needed for steam
   hardware.opengl.driSupport32Bit = true;
