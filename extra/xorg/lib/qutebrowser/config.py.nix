@@ -285,6 +285,8 @@ for mode in modes:
     config.bind('<Alt+j>', 'leave-mode', mode=mode)
 del modes
 config.bind(',p', 'spawn --userscript qute-pass')
+config.bind(',t', 'hint all userscript transmission')
+config.bind(',P', 'open -p')
 config.bind(',v', 'spawn -d mpv {url}')
 config.bind(',r', 'restart')
 config.bind(';I', 'hint images download')

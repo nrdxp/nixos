@@ -25,6 +25,9 @@
       { ".background-image".source     =
           "${pkgs.adapta-backgrounds}/share/backgrounds/adapta/tealized.jpg";
 
+        ".local/share/qutebrowser/userscripts".source =
+        ../usr/qutebrowser/scripts;
+
         ".config/qutebrowser/config.py" =
         {
           text = "config.source('/etc/qutebrowser/config.py')";
