@@ -11,18 +11,18 @@
 
     while true; do
       printf "%s\n" \
-      "[1] XMonad" \
-      "[2] RetroArch" \
-      "[3] shell"
+      "[j] XMonad" \
+      "[f] RetroArch" \
+      "[s] shell"
 
-      read -s choice
+      read -sk1 choice
 
       case "$choice" in
-        1)
+        "j")
           exec startx ;;
-        2)
+        "f")
           exec retroarch ;;
-        3)
+        "s")
           unset TRAPINT
           break
         ;;
@@ -35,4 +35,6 @@
     done
   fi
   '';
+
+  slock.enable = true;
 }

@@ -5,7 +5,4 @@ let recImport = import ../fn/recImport.nix args;
 in
 { imports = [ ./home.nix ];
   fonts.fonts = [ pkgs.nerdfonts ];
-
-  programs.slock.enable = true;
-
 } // recImport ./xorg
