@@ -1,8 +1,8 @@
 { ... }:
-{ zsh.loginShellInit =
+{ slock.enable = true;
+
+  zsh.loginShellInit =
   ''
-
-
   if [[ $TTY == "/dev/tty1" ]]; then
 
     TRAPINT() {
@@ -35,6 +35,4 @@
     done
   fi
   '';
-
-  slock.enable = true;
 }
