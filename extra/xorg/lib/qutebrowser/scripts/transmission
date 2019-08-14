@@ -1,2 +1,0 @@
-#!/usr/bin/env zsh
-/usr/bin/env transmission-remote -a "${QUTE_URL}"
