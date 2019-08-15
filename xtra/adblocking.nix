@@ -4,7 +4,7 @@ in
 {
   networking.extraHosts = with builtins;
       readFile
-      ( fetchurl ( url + "/alternates/fakenews-gambling-porn-social/hosts" )
+      ( fetchurl ( url + "/alternates/fakenews-gambling-porn/hosts" )
       );
 
 }
