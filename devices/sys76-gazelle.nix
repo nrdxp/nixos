@@ -20,6 +20,17 @@
 
   services.xserver.videoDrivers = [ "intel" "modesetting" ];
 
+  # enable tearfree
+  services.xserver.extraConfig =
+  ''
+  Section "OutputClass"
+    Identifier "Intel Graphics"
+    MatchDriver "i915"
+    Driver "intel"
+    Option "TearFree" "true"
+  EndSection
+  '';
+
   # hardware acceleration
   nixpkgs.config.packageOverrides = pkgs: {
     vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
