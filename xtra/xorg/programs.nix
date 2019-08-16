@@ -19,7 +19,7 @@
 
       case "$choice" in
         "j")
-          exec startx ;;
+          exec startx -- -logfile ~/.local/share/xorg/X.0.log ;;
         "f")
           exec retroarch ;;
         "s")
