@@ -27,7 +27,7 @@ in
         ( lib.const ( ksuper:
         let kernel = localmodconfig ksuper.kernel; in
         { kernel = kernel.override {
-              modDirVersionArg = ksuper.kernel.version + "-rt1";
+              modDirVersionArg = ksuper.kernel.version + "-rt3";
               stdenv = self.ccacheStdenv;
               # neccessary or linux-config will stop the build
               ignoreConfigErrors = true;
@@ -38,7 +38,7 @@ in
 
     ccacheWrapper =
     self: super:
-    { ccacheWrapper =super.ccacheWrapper.override {
+    { ccacheWrapper = super.ccacheWrapper.override {
         extraConfig = ''
           export CCACHE_DIR=/nix/var/ccache
           export CCACHE_UMASK=007

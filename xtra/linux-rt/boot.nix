@@ -2,9 +2,10 @@
 { kernelPatches = with builtins;
   let
     version = "5.2";
-    rtPatch = "patch-${version}-rt1.patch.gz";
+    sversion = "${version}.9";
+    rtPatch = "patch-${sversion}-rt3.patch.gz";
     rtPatchUrl = https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt;
-    rtPatchDir = fetchurl "${rtPatchUrl}/${version}/older/${rtPatch}";
+    rtPatchDir = fetchurl "${rtPatchUrl}/${version}/${rtPatch}";
 
     ntvPatch =
       "enable_additional_cpu_optimizations_for_gcc_v4.9+_kernel_v4.13+.patch";
