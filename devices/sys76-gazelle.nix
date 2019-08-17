@@ -63,4 +63,5 @@
   nix.maxJobs = lib.mkDefault 4;
 
   environment.variables.LIBVA_DRIVER_NAME="iHD";
+  environment.variables.MESA_GL_VERSION_OVERRIDE="4.5";
 }
