@@ -7,9 +7,7 @@
     ".local/share/qutebrowser/userscripts".source =
     ./lib/qutebrowser/scripts;
 
-    ".xinitrc" =
-    { text = "exec xmonad";
-    };
+    ".xinitrc".text = "exec xmonad";
 
     ".config/qutebrowser/config.py" =
     {

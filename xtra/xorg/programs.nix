@@ -4,35 +4,11 @@
   zsh.loginShellInit =
   ''
   if [[ $TTY == "/dev/tty1" ]]; then
-
-    TRAPINT() {
-      exit $(( 128 + $1 ))
-    }
-
-    while true; do
-      printf "%s\n" \
-      "[j] XMonad" \
-      "[f] RetroArch" \
-      "[s] shell"
-
-      read -sk1 choice
-
-      case "$choice" in
-        "j")
-          exec startx -- -logfile ~/.local/share/xorg/X.0.log ;;
-        "f")
-          exec retroarch ;;
-        "s")
-          unset TRAPINT
-          break
-        ;;
-        *)
-          printf "\n[error]: '%s' %s\n%s\n" \
-          $choice \
-          "not valid"
-        ;;
-      esac
-    done
+    if [[ -x ~/.x ]]; then
+      exec ~/.x
+    else
+      exec startx -- -logfile ~/.local/share/xorg/X.0.log vt01
+    fi
   fi
   '';
 }
