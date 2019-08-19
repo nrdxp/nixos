@@ -1,7 +1,10 @@
-{ ... }:
+{ pkgs, ... }:
 {
-  hardware.pulseaudio.enable = true;
-  hardware.pulseaudio.daemon.logLevel = "error";
-  hardware.pulseaudio.systemWide = false;
-  environment.systemPackages = [ pkgs.pulsemixser ];
+  hardware.pulseaudio = {
+  enable = true;
+  package = pkgs.pulseaudioFull;
+  daemon.logLevel = "error";
+  systemWide = false;
+  };
+  environment.systemPackages = [ pkgs.pulsemixer ];
 }
