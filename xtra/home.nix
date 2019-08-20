@@ -14,7 +14,7 @@
 
         ".config/git/config".text    = home.gitconfig;
 
-        ".ec2-keys"                  = home.ec2-keys;
+        ".ec2-keys".text             = home.ec2-keys;
 
         ".ssh/config".text           = home.ssh.config;
         ".ssh/github".text           = home.ssh.github;
