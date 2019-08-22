@@ -67,9 +67,10 @@ in
     ];
 
     systemd.services.qbittorrent = {
-      after = [ "network.target" ];
+      after = [ "network.target" "openvpn-client.service" ];
+      requisite = [ "openvpn-client.service" ];
       description = "qBittorrent Daemon";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = [ "multi-user.target" "openvpn-client.service" ];
       path = [ pkgs.qbittorrent ];
       serviceConfig = {
         ExecStart = ''
