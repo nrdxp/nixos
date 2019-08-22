@@ -73,10 +73,12 @@
   rkms    = "DISPLAY= sudo openvt -swf -c9 -- retroarch" ;
 
   # systemd aliases
-  sctl    = "systemctl"                                  ;
-  ssctl   = "env sudo systemctl"                         ;
-  uctl    = "systemctl --user"                           ;
-  ut      = "uctl start"                                 ;
-  up      = "uctl stop"                                  ;
+  ctl     = "systemctl"                                  ;
+  stl     = "env sudo systemctl"                         ;
+  utl     = "systemctl --user"                           ;
+  ut      = "systemctl --user start"                     ;
+  un      = "systemctl --user stop"                      ;
+  up      = "env sudo systemctl start"                   ;
+  dn      = "env sudo systemctl stop"                    ;
   jctl    = "journalctl"                                 ;
 }
