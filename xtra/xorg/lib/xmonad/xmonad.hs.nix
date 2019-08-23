@@ -24,6 +24,9 @@ import           Graphics.X11.ExtraTypes.XF86        (xF86XK_AudioLowerVolume,
                                                       xF86XK_AudioRaiseVolume)
 import           Graphics.X11.Types                  (KeyMask, KeySym, Window)
 import           System.Environment                  (lookupEnv)
+import           XMonad.Layout.ResizableTile         (ResizableTall(..),
+                                                      MirrorResize (MirrorShrink,
+                                                      MirrorExpand))
 import           XMonad.Layout.MultiToggle
 import           XMonad.Layout.MultiToggle.Instances
 
@@ -45,19 +48,19 @@ myLayout = smartBorders
    . onWorkspace "7:im" ( half ||| Mirror half ||| tiled ||| reflectHoriz tiled )
    $ tiled ||| reflectHoriz tiled ||| half ||| Mirror half
     where
-      tiled     = Tall nmaster delta ratiot
-      half      = Tall nmaster delta ratioh
+      tiled     = ResizableTall nmaster delta ratiot []
+      half      = ResizableTall nmaster delta ratioh []
       nmaster   = 1
       ratiot    = 309/500
       ratioh    = 1/2
       delta     = 1/9
 
-myWorkspaces :: [ [Char] ]
-myWorkspaces = ["1:main", "2:art", "3:torrent", "4:pdf", "5:game", "6:media", "7:im", "8", "9"]
+myWorkspaces :: [ String ]
+myWorkspaces = ["1:main", "2:art", "3:net", "4:pdf", "5:game", "6:media", "7:im", "8", "9"]
 
 myAutostart :: X ()
 myAutostart = do
-  spawn "${ autostart }"
+  spawn "${autostart}"
   setWMName "LG3D"
   sendMessage $ SetStruts [] [minBound .. maxBound]
   setDefaultCursor xC_left_ptr
@@ -70,19 +73,16 @@ myManageHook :: Query
 myManageHook = composeAll
   [ className =? "st-256color" --> viewShift "1:main"
   , className =? "qutebrowser" --> viewShift "1:main"
-  , className =? "Gimp-2.99" --> viewShift "2:art"
-  , className =? "krita" --> viewShift "2:art"
+  , className =? "Gimp"        --> viewShift "2:art"
+  , className =? "krita"       --> viewShift "2:art"
   , className =? "qBittorrent" --> viewShift "3:torrent"
-  , className =? "PCSX2" --> viewShift "5:game"
-  , className =? "RPCS3" --> viewShift "5:game"
-  , className =? "mpv" --> viewShift "6:media"
-  , className =? "Google Play Music Desktop Player" --> viewShift "6:media"
-  , className =? "Zathura" --> viewShift "4:pdf"
-  , className =? "Evince" --> viewShift "4:pdf"
-  , className =? "Riot" --> doShift "7:im"
-  , className =? "Signal" --> doShift "7:im"
-  , className =? "Steam" --> doFloat
-  , className =? "Wine" --> doFloat
+  , className =? "PCSX2"       --> viewShift "5:game"
+  , className =? "RPCS3"       --> viewShift "5:game"
+  , className =? "mpv"         --> viewShift "6:media"
+  , className =? "Zathura"     --> viewShift "4:pdf"
+  , className =? "Signal"      --> doShift "7:im"
+  , className =? "Steam"       --> doFloat
+  , className =? "Wine"        --> doFloat
   ]
     where viewShift = doF . liftM2 (.) S.greedyView S.shift
 
@@ -91,13 +91,13 @@ myModKey :: KeyMask
 myModKey = mod4Mask
 
 -- function to call dzen2 and show volume in the middle of the screen
-dzcall :: [Char]
+dzcall :: String
 dzcall = "${dzvol}/bin/dzvol -fn 'DejaVu Sans Mono for Powerline-16:normal'"
 
 -- Function for fullscreen toggle
 fullToggle :: X ()
 fullToggle = do
-  spawn "${ stoggle }"
+  spawn "${stoggle}"
   sendMessage $ Toggle NBFULL
   sendMessage $ SetStruts [] [minBound .. maxBound]
 
@@ -109,9 +109,18 @@ myKeys =
   [ ( ( myModKey                              , xK_f                    )
     , fullToggle
     )
-  -- don't rebuild in nixos since it will fail just call autostart script
-  , ( ( myModKey                              , xK_q                    )
-    , spawn "${ autostart }"
+  -- resize windows in master pane
+  , ( ( myModKey                              , xK_Left                 )
+    , sendMessage MirrorExpand
+    )
+  , ( ( myModKey                              , xK_Right                )
+    , sendMessage MirrorShrink
+    )
+  , ( ( myModKey                              , xK_Up                   )
+    , sendMessage MirrorExpand
+    )
+  , ( ( myModKey                              , xK_Down                 )
+    , sendMessage MirrorShrink
     )
   -- toggle systray
   , ( ( myModKey .|. shiftMask                , xK_f                    )
@@ -180,7 +189,7 @@ myKeys =
   -- toggle touchpad
   , ( ( myModKey .|. shiftMask                , xK_t                    )
 
-    , spawn "${ touchtoggle }"
+    , spawn "${touchtoggle}"
     )
   -- dmenu frontend for network manager
   , ( ( myModKey                              , xK_n                    )
@@ -198,7 +207,7 @@ main =
   xmonad . ewmh $ desktopConfig
   { terminal           = "st"
   , modMask            = myModKey
-  , layoutHook         = avoidStruts $ myLayout
+  , layoutHook         = avoidStruts myLayout
   , workspaces         = myWorkspaces
   , startupHook        = myAutostart
   , manageHook         = myManageHook
