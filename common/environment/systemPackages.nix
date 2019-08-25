@@ -15,5 +15,6 @@ with pkgs; let
     tmux     bind        xsel
     hlint    neovim      racer
     fzf      gnupg       pciutils
+    ltrace   valgrind    gdb
   ];
 in sysPkgs ++ tmuxPkgs
