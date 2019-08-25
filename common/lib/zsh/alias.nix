@@ -76,9 +76,13 @@
   ctl     = "systemctl"                                  ;
   stl     = "env sudo systemctl"                         ;
   utl     = "systemctl --user"                           ;
+  stt     = "systemctl status"                           ;
+  utt     = "systemctl --user status"                    ;
   ut      = "systemctl --user start"                     ;
+  reut    = "systemctl --user restart"                   ;
   un      = "systemctl --user stop"                      ;
   up      = "env sudo systemctl start"                   ;
+  reup    = "env sudo systemctl restart"                 ;
   dn      = "env sudo systemctl stop"                    ;
   jctl    = "journalctl"                                 ;
 }
