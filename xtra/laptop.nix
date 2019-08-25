@@ -19,7 +19,8 @@
 
   sound.mediaKeys =
     { enable     = true;
-      volumeStep = "1dB";
+      allowBoost = true;
+      volumeStep = 1;
     };
 
   # better timesync for unstable internet connections
