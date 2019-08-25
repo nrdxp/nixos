@@ -13,5 +13,8 @@
       ./xtra/games.nix
       ./xtra/stubby.nix
       ./abstract/audio-ws.nix
+      ./xtra/libvirtd.nix
+      ./xtra/webdev.nix
+      ./xtra/pulseaudio.nix
     ];
 }
