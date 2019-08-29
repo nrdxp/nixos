@@ -30,9 +30,6 @@ let
         value = recImport fullPath;
       };
 
-    toFullPath = dirname: basename:
-      dirname + "/${basename}";
-
   # applyFilter :: Path -> AttrSet
     applyFilter = dir:
       filterAttrs
@@ -112,7 +109,7 @@ let
     firstPass :: Path -> AttrSet */
     firstPass = dir: listToAttrs (
       map prepAttr (
-        map (toFullPath dir) (
+        map (basename: dir + "/${basename}") (
           attrNames (applyFilter dir)
         )
       )
