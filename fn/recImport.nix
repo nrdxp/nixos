@@ -1,8 +1,4 @@
 args@{ lib, ... }:
-# takes a path to a directory and gives back a set matching the file heirarchy
-# containing every file ending in ".nix" with its contents as its value
-# including those in subdirectories
-# recImport :: path -> set
 let
   inherit (builtins) readFile readDir;
   inherit (lib) pathType strings attrsets attrNames lists listToAttrs;
@@ -10,11 +6,14 @@ let
   inherit (lists) head drop count remove;
   inherit (attrsets) filterAttrs;
 
+  /* takes a path to a directory and recursively generates a set matching the
+  file heirarchy where { 'file' = 'file contents' }
+
+  recImport :: Path -> AttrSet */
   recImport = let
-    # get list of paths ready to be converted to attrs
+  # prepAttr :: Path -> (AttrSet => { name : value })
     prepAttr = fullPath:
       if pathType fullPath == "regular"
-        # import contents of ".nix" files
       then
         if hasSuffix ".nix" fullPath
         then {
@@ -22,12 +21,10 @@ let
             (baseNameOf fullPath);
           value = import fullPath args;
         }
-          # or simply readFile literally if its not a .nix file
         else {
           name = (baseNameOf fullPath);
           value = readFile fullPath;
         }
-        # or call itself recursively in case of directory
       else {
         name = baseNameOf fullPath;
         value = recImport fullPath;
@@ -36,20 +33,23 @@ let
     toFullPath = dirname: basename:
       dirname + "/${basename}";
 
-    # function to apply filter rules
+  # applyFilter :: Path -> AttrSet
     applyFilter = dir:
       filterAttrs
         (filterRules dir)
         (readDir dir);
 
-    # filter rules to be applied
+/*  filterRules ::
+      Path                 ->
+      (String => AttrName) ->
+      (Any => AttrValue)   ->
+      Bool */
     filterRules = dir: n: v:
       !  (hasPrefix "." n)
       && (
            (
              (
                v == "directory"
-               # check subdirs recursively for same rules
                && (applyFilter (dir + "/${n}") != {})
              )
              && n != "unused"
@@ -60,15 +60,22 @@ let
                 && n != "default.nix"
               )
          );
-    # if there is both a .nix file and directory of same name merge the two
+
+    /* if there is both a .nix file and directory of same name merge the two
+
+    ifDuplicate :: AttrSet -> Path -> AttrSet */
     ifDuplicate = let
-      # get list of qualifying files
-      list = dir:
+      /* get list of qualifying files using 'applyFilter'
+
+      fileList :: Path -> List */
+      fileList = dir:
         map (removeSuffix ".nix")
           (attrNames (applyFilter dir));
 
-      # filter list to include one instance per item that had duplicates in
-      # the input and dropping any item that does not have a duplicate
+      /* list of files that have both a regular file and a directory
+      with their duplicate entries removed
+
+      duplicates :: List -> List */
       duplicates = list:
         if list == [] then
           []
@@ -80,26 +87,29 @@ let
           then [ x ] ++ remove x xs
           else xs;
 
-      # function to mapped on duplicates list to prepare a final attrs to be
-      # merged with the original
-      modifySet = set: dir: attr: {
-        name = "${attr}";
-        value = set."${attr}"
-          // (import (dir + "/${attr}.nix") args)
+      /* tack on the ${file}.nix to the end of the set contructed from the
+      directory of the same name
+
+      modifySet :: AttrSet -> Path -> String -> AttrSet */
+      modifySet = set: dir: file: {
+        name = "${file}";
+        value = set."${file}"
+          // (import (dir + "/${file}.nix") args)
           ;
       };
-
     in
       set: dir:
-        if duplicates (list dir) == []
+        if duplicates (fileList dir) == []
         then set
         else set
         // listToAttrs (
              map (modifySet set dir)
-               (duplicates (list dir))
+               (duplicates (fileList dir))
            );
 
-    # fist pass before checking for duplicates
+    /* fist pass before checking for duplicates
+
+    firstPass :: Path -> AttrSet */
     firstPass = dir: listToAttrs (
       map prepAttr (
         map (toFullPath dir) (
