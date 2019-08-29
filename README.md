@@ -16,7 +16,10 @@ you can also pass around attributes like `pkgs` or `config` in the
 same way as traditional imports. e.g. `{ pkgs, ... }:` at the top of the file.
 This function lives at `fn/recImport.nix`.
 
-Other then that, please excuse my mess and feel free to look around.
+Other than that, please excuse my mess and feel free to look around.
 
 Disclaimer:
-May not work without my fork of nixpkgs
+I merge my changes into [nixpkgs master](https://github.com/NixOS/nixpkgs), 
+but depending on the timing, this configuration may not work without my 
+[nixpkgs fork](https://github.com/nrdxp/nixpkgs/tree/fork).
+
