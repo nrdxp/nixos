@@ -5,7 +5,6 @@ with pkgs;
   BROWSER                     = "qutebrowser";
   # Theme settings
   QT_QPA_PLATFORMTHEME        = "gtk2";
-  XDG_CONFIG_DIRS             = "/etc/xdg";
   GDK_PIXBUF_MODULE_FILE      =
     "$(echo ${librsvg.out}/lib/gdk-pixbuf-2.0/*/loaders.cache)";
   GTK2_RC_FILES               =
