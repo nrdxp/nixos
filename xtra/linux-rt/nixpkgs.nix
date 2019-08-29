@@ -27,7 +27,7 @@ in
         ( lib.const ( ksuper:
         let kernel = localmodconfig ksuper.kernel; in
         { kernel = kernel.override {
-              modDirVersionArg = ksuper.kernel.version + "-rt3";
+              modDirVersionArg = ksuper.kernel.version + "-rt5";
               stdenv = self.ccacheStdenv;
               # neccessary or linux-config will stop the build
               ignoreConfigErrors = true;

@@ -2,8 +2,8 @@
 { kernelPatches = with builtins;
   let
     version = "5.2";
-    sversion = "${version}.9";
-    rtPatch = "patch-${sversion}-rt3.patch.gz";
+    sversion = "${version}.10";
+    rtPatch = "patch-${sversion}-rt5.patch.gz";
     rtPatchUrl = https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt;
     rtPatchDir = fetchurl "${rtPatchUrl}/${version}/${rtPatch}";
 
