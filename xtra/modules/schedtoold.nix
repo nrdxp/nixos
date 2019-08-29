@@ -1,10 +1,11 @@
-{ config ,lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 with lib;
-let cfg = config.services.schedtoold;
+let
+  cfg = config.services.schedtoold;
 in
 {
-  options.services.schedtoold =
-  { enable = mkOption {
+  options.services.schedtoold = {
+    enable = mkOption {
       type = types.bool;
       default = false;
       description = ''
@@ -33,22 +34,21 @@ in
 
   config = mkIf cfg.enable {
 
-    systemd.services."schedtoold" =
-    { enable = true;
+    systemd.services."schedtoold" = {
+      enable = true;
       description = "schedtoold service";
-      serviceConfig =
-      { Type = "forking";
+      serviceConfig = {
+        Type = "forking";
         PIDFile = "/var/run/schedtoold.pid";
         User = "root";
-        ExecStart =
-          "${pkgs.schedtoold}/bin/schedtoold";
+        ExecStart = "${pkgs.schedtoold}/bin/schedtoold";
         ExecStop = "${pkgs.utillinux}/bin/kill -15 $MAINPID";
       };
       wantedBy = [ "multi-user.target" ];
     };
 
-    environment.etc."schedtoold.conf" =
-    { text = cfg.configFile;
+    environment.etc."schedtoold.conf" = {
+      text = cfg.configFile;
     };
 
     environment.systemPackages = [ pkgs.schedtoold pkgs.schedtool ];

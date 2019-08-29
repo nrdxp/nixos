@@ -1,7 +1,8 @@
 { pkgs, ... }:
-{ imports = [ ./kak.nix ];
+{
+  imports = [ ./kak.nix ];
 
   programs.npm.enable = true;
   environment.systemPackages = with pkgs;
-  [ yarn nodejs_latest ];
+    [ yarn nodejs_latest ];
 }

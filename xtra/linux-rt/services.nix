@@ -1,6 +1,7 @@
 { pkgs, ... }:
-{ schedtoold =
-  { enable = true;
+{
+  schedtoold = {
+    enable = true;
     configFile = ''
       ${pkgs.retroarchBare}/bin/.retroarch-wrapped -F -p 15
     '';

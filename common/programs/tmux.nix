@@ -1,18 +1,18 @@
 { usr, ... }:
-with usr.tmux;
 let
-  tmuxConf = with builtins;
-  let
-    tmuxlineConf = tmuxline;
+  inherit (builtins) concatStringsSep attrValues;
+  inherit (usr.tmux) conf pluginConf plugins tmuxline;
 
-    tmuxConf     = with conf;
-      concatStringsSep "\n\n"
-      [ navigator tmux yank-override ];
+  tmuxConf = let
+    tmux = concatStringsSep "\n\n"
+      (attrValues conf);
 
-    pluginConf   = usr.tmux.pluginConf plugins;
-  in concatStringsSep "\n\n"
-    [ tmuxlineConf tmuxConf pluginConf ];
+    plugin = pluginConf plugins;
+  in
+    concatStringsSep "\n\n"
+      [ tmuxline tmux plugin ];
 in
-{ enable        = true;
+{
+  enable = true;
   extraTmuxConf = tmuxConf;
 }

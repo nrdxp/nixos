@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
-  hardware.pulseaudio =
-  { enable = true;
+  hardware.pulseaudio = {
+    enable = true;
     package = pkgs.pulseaudioFull;
     daemon.logLevel = "error";
     systemWide = false;

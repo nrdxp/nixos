@@ -1,29 +1,26 @@
 { pkgs, usr, ... }:
 {
-  users.nrd.home.file =
-  { ".background-image".source     =
+  users.nrd.home.file = {
+    ".background-image".source =
       "${pkgs.adapta-backgrounds}/share/backgrounds/adapta/tealized.jpg";
 
     ".local/share/qutebrowser/userscripts".source =
-    ./lib/qutebrowser/scripts;
+      ./lib/qutebrowser/scripts;
 
     ".xinitrc".text = "exec xmonad";
 
-    ".config/qutebrowser/config.py" =
-    {
+    ".config/qutebrowser/config.py" = {
       text = "config.source('/etc/qutebrowser/config.py')";
 
       # install spellchecker
-      onChange =
-      ''
-      ${pkgs.qutebrowser}/share/qutebrowser/scripts/dictcli.py install en-US
+      onChange = ''
+        ${pkgs.qutebrowser}/share/qutebrowser/scripts/dictcli.py install en-US
       '';
     };
 
-    "shots/dummy" =
-    { onChange =
-      ''
-      rm $HOME/shots/dummy
+    "shots/dummy" = {
+      onChange = ''
+        rm $HOME/shots/dummy
       '';
 
       text = "";

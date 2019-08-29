@@ -1,7 +1,14 @@
-{ stdenv, glib, fetchFromGitHub, pass, python3Packages
-, gobject-introspection }:
-let inherit (python3Packages) python pygobject3;
-in stdenv.mkDerivation rec {
+{ stdenv
+, glib
+, fetchFromGitHub
+, pass
+, python3Packages
+, gobject-introspection
+}:
+let
+  inherit (python3Packages) python pygobject3 wrapPython;
+in
+stdenv.mkDerivation rec {
   name = "passdmenu-${version}";
   version = "1.2.0";
 
@@ -12,7 +19,14 @@ in stdenv.mkDerivation rec {
     sha256 = "0n1k4n1h1dq26a6cz14hf7jgnkd056kkh82d2sgmh50r6mymspns";
   };
 
-  buildInputs = [ glib python pygobject3 gobject-introspection pass python3Packages.wrapPython ];
+  buildInputs = [
+    glib
+    python
+    pygobject3
+    gobject-introspection
+    pass
+    wrapPython
+  ];
 
   dontBuild = true;
 
@@ -30,9 +44,9 @@ in stdenv.mkDerivation rec {
 
 
   meta = with stdenv.lib; {
-    description  = "Small script to manage 'Pass' passwords with dmenu";
-    homepage     = https://github.com/klaasb/passdmenu;
-    license      = stdenv.lib.licenses.mit;
-    platforms    = stdenv.lib.platforms.all;
+    description = "Small script to manage 'Pass' passwords with dmenu";
+    homepage = https://github.com/klaasb/passdmenu;
+    license = licenses.mit;
+    platforms = platforms.all;
   };
 }

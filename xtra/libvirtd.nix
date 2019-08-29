@@ -1,5 +1,6 @@
 { ... }:
-{ virtualisation.libvirtd.enable = true;
+{
+  virtualisation.libvirtd.enable = true;
   users.extraUsers.nrd.extraGroups = [ "libvirtd" ];
   networking.firewall.checkReversePath = false;
 }

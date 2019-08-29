@@ -6,8 +6,7 @@ stdenv.mkDerivation rec
   src = ./zsh-plugins.tar.gz;
   buildInputs = [ antibody git cacert findutils patchelf ];
 
-  installPhase =
-  ''
+  installPhase = ''
     mkdir -p $out/.cache
     XDG_CACHE_HOME=$out/.cache antibody bundle < ./plugins \
     | sort \

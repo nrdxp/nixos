@@ -1,4 +1,4 @@
-{ config ,lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 with lib;
 let
   cfg = config.services.qbittorrent;
@@ -6,8 +6,8 @@ let
   openFilesLimit = 4096;
 in
 {
-  options.services.qbittorrent =
-  { enable = mkOption {
+  options.services.qbittorrent = {
+    enable = mkOption {
       type = types.bool;
       default = false;
       description = ''
@@ -60,8 +60,9 @@ in
     environment.systemPackages = [ pkgs.qbittorrent ];
 
     nixpkgs.overlays = [
-      ( self: super:
-        { qbittorrent = super.qbittorrent.override { guiSupport = false; };
+      (
+        self: super: {
+          qbittorrent = super.qbittorrent.override { guiSupport = false; };
         }
       )
     ];

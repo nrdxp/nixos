@@ -1,8 +1,7 @@
 { ... }:
-self: super:
-{ retroarchBare = super.retroarchBare.overrideAttrs
-  ( oldAttrs: rec
-    {
+self: super: {
+  retroarchBare = super.retroarchBare.overrideAttrs (
+    oldAttrs: rec {
       name = "retroarch-bare-${version}";
       version = "1.7.7";
 
@@ -16,7 +15,9 @@ self: super:
       NIX_CFLAGS_COMPILE = "-march=native -flto";
       NIX_CXXFLAGS_COMPILE = "-march=native -flto";
       # add mesa_noglu to build inputs for kms support
-      buildInputs = with super;
+      buildInputs = let
+        inherit (super) retroarchBare mesa_noglu;
+      in
         retroarchBare.buildInputs ++ [ mesa_noglu ];
     }
   );

@@ -1,14 +1,10 @@
 { ... }:
-{ imports =
-  let
-    mapServDir = map
-      ( x: ../xtra + "/${x}.nix" );
-  in
-  mapServDir [
-    "adblocking"
-    "home"
-    "xorg"
-    "linux-rt"
-    "make-linux-fast-again"
+{
+  imports = [
+    ../xtra/adblocking.nix
+    ../xtra/home.nix
+    ../xtra/xorg.nix
+    ../xtra/linux-rt.nix
+    ../xtra/make-linux-fast-again.nix
   ];
 }

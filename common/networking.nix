@@ -1,7 +1,8 @@
 { ... }:
-{ hostName = "NixBox";
+{
+  hostName = "NixBox";
 
-  networkmanager =
-  { enable = true;
+  networkmanager = {
+    enable = true;
   };
 }

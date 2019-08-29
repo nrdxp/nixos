@@ -1,4 +1,5 @@
 { ... }:
-{ fstrim.enable    = true;
-  earlyoom.enable  = true;
+{
+  fstrim.enable = true;
+  earlyoom.enable = true;
 }

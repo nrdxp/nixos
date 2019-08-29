@@ -1,5 +1,8 @@
 { pkgs, ... }:
 with pkgs.tmuxPlugins;
-[ copycat open resurrect
+[
+  copycat
+  open
+  resurrect
   yank
 ]

@@ -1,26 +1,29 @@
 { lib, usr, ... }:
+let
+  inherit (usr) home;
+  inherit (lib) mkForce;
+in
 {
-  imports =
-  [ "${builtins.fetchGit https://github.com/rycee/home-manager}/nixos"
+  imports = [
+    "${fetchGit https://github.com/rycee/home-manager}/nixos"
   ];
 
-  home-manager.users.nrd =
-  { home =
-    {
-      packages = lib.mkForce [];
+  home-manager.users.nrd = {
+    home = {
+      packages = mkForce [];
 
-      file = with usr;
-      { ".zshrc".text                  = "";
+      file = {
+        ".zshrc".text = "";
 
-        ".config/git/config".text    = home.gitconfig;
+        ".config/git/config".text = home.gitconfig;
 
-        ".ec2-keys".text             = home.ec2-keys;
+        ".ec2-keys".text = home.ec2-keys;
 
-        ".ssh/config".text           = home.ssh.config;
-        ".ssh/github".text           = home.ssh.github;
-        ".ssh/github.pub".text       = home.ssh."github.pub";
-        ".ssh/gitlab".text           = home.ssh.gitlab;
-        ".ssh/gitlab.pub".text       = home.ssh."gitlab.pub";
+        ".ssh/config".text = home.ssh.config;
+        ".ssh/github".text = home.ssh.github;
+        ".ssh/github.pub".text = home.ssh."github.pub";
+        ".ssh/gitlab".text = home.ssh.gitlab;
+        ".ssh/gitlab.pub".text = home.ssh."gitlab.pub";
 
         ".gnupg/gpg-agent.conf".text = home.gnupg."gpg-agent.conf";
       };

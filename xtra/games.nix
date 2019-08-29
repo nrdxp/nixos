@@ -1,7 +1,8 @@
 { pkgs, ... }:
-{ imports = [ ./xorg.nix ./home.nix ./games ];
+{
+  imports = [ ./xorg.nix ./home.nix ./games ];
   environment.systemPackages = with pkgs;
-  [ retroarchBare black_chocobo steam ];
+    [ retroarchBare black_chocobo steam ];
 
   # fps games on laptop need this
   services.xserver.libinput.disableWhileTyping = false;
@@ -14,7 +15,7 @@
   systemd.extraConfig = "DefaultLimitNOFILE=1048576";
 
   # improve wine performance
-  environment.sessionVariables =
-  { WINEDEBUG = "-all";
+  environment.sessionVariables = {
+    WINEDEBUG = "-all";
   };
 }

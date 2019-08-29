@@ -1,6 +1,9 @@
 { ... }:
-{ kernelPatches = with builtins;
-  let
+let
+  inherit (builtins) fetchurl;
+in
+{
+  kernelPatches = let
     version = "5.2";
     sversion = "${version}.10";
     rtPatch = "patch-${sversion}-rt5.patch.gz";
@@ -10,38 +13,38 @@
     ntvPatch =
       "enable_additional_cpu_optimizations_for_gcc_v4.9+_kernel_v4.13+.patch";
   in
-  [
-    {
-      name = "realtime patchset";
-      patch = rtPatchDir;
+    [
+      {
+        name = "realtime patchset";
+        patch = rtPatchDir;
 
-      extraConfig =
-      ''
-      PREEMPT y
-      PREEMPT_RT_FULL y
-      RT_GROUP_SCHED? n
+        extraConfig =
+          ''
+            PREEMPT y
+            PREEMPT_RT_FULL y
+            RT_GROUP_SCHED? n
 
-      IOSCHED_DEADLINE y
-      DEFAULT_DEADLINE y
-      DEFAULT_IOSCHED deadline
+            IOSCHED_DEADLINE y
+            DEFAULT_DEADLINE y
+            DEFAULT_IOSCHED deadline
 
-      HPET_TIMER y
-      TREE_RCU_TRACE? n
-      RT_GROUP_SCHED? n
-      '';
-    }
-    # since we have to build the kernel anyway, might as well use march=native
-    {
-      name = "native-optimization";
-      patch =
-      "${builtins.fetchGit
-         https://github.com/graysky2/kernel_gcc_patch}/${ntvPatch}"
-      ;
+            HPET_TIMER y
+            TREE_RCU_TRACE? n
+            RT_GROUP_SCHED? n
+          '';
+      }
+      # since we have to build the kernel anyway, might as well use march=native
+      {
+        name = "native-optimization";
+        patch =
+          "${builtins.fetchGit
+            https://github.com/graysky2/kernel_gcc_patch}/${ntvPatch}"
+          ;
 
-      extraConfig =
-      ''
-      MNATIVE y
-      '';
-    }
-  ];
+        extraConfig =
+          ''
+            MNATIVE y
+          '';
+      }
+    ];
 }

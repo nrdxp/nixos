@@ -1,19 +1,19 @@
 { usr, pkgs, ... }:
-with usr.zsh;
 let
-  zshAliases = alias;
+  inherit (usr.zsh) alias startrc endrc;
+  inherit (pkgs) zsh-plugins fzf;
+  inherit (builtins) concatStringsSep;
 
-  zshrc      = with pkgs; with builtins;
-  let
-    zshrcStart   = startrc;
+  zshrc = let
     zshrcPlugins = "source ${zsh-plugins}/plugins.sh\n";
-    zshrcEnd     = endrc;
-    zshrcFzf     = "source ${fzf}/share/fzf/key-bindings.zsh";
-  in concatStringsSep "\n\n"
-    [ zshrcStart zshrcPlugins zshrcEnd zshrcFzf ];
+    zshrcFzf = "source ${fzf}/share/fzf/key-bindings.zsh";
+  in
+    concatStringsSep "\n\n"
+      [ startrc zshrcPlugins endrc zshrcFzf ];
 in
-{ enable               = true;
-  promptInit           = "";
-  shellAliases         = zshAliases;
+{
+  enable = true;
+  promptInit = "";
+  shellAliases = alias;
   interactiveShellInit = zshrc;
 }

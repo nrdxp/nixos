@@ -1,4 +1,5 @@
 { pkgs, ... }:
-{ defaultUserShell = pkgs.zsh;
-  mutableUsers     = false;
+{
+  defaultUserShell = pkgs.zsh;
+  mutableUsers = false;
 }

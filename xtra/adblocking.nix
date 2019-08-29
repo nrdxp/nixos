@@ -1,10 +1,10 @@
 { ... }:
-let url = https://raw.githubusercontent.com/StevenBlack/hosts/master;
+let
+  inherit (builtins) readFile fetchurl;
+  url = https://raw.githubusercontent.com/StevenBlack/hosts/master;
 in
 {
-  networking.extraHosts = with builtins;
-      readFile
-      ( fetchurl ( url + "/hosts" )
-      );
-
+  networking.extraHosts = readFile (
+    fetchurl (url + "/hosts")
+  );
 }

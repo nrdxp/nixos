@@ -1,3 +1,4 @@
 { pkgs, ... }:
-{ shells = [ pkgs.zsh ];
+{
+  shells = [ pkgs.zsh ];
 }

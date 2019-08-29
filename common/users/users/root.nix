@@ -1,4 +1,4 @@
 { usr, ... }:
-with usr;
-{ hashedPassword = usr.pwHash.root;
+{
+  hashedPassword = usr.pwHash.root;
 }
