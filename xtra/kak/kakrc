@@ -14,8 +14,8 @@ hook global WinCreate ^[^*]+$ %{ add-highlighter window/ number-lines  }
 map global normal <a-q> ': delete-buffer<ret>'
 map global normal <c-s> 'Z%2@z: write<ret>'
 map global normal <c-q> ': quit<ret>'
-map global normal <a-n> ': buffer-next<ret>'
-map global normal <a-p> ': buffer-previous<ret>'
+map global normal <c-a-n> ': buffer-next<ret>'
+map global normal <c-a-p> ': buffer-previous<ret>'
 map global insert <a-k> <esc>
 map global -docstring "comment line" user c ': comment-line<ret>'
 map global -docstring "comment block" user C ': comment-block<ret>'
@@ -76,14 +76,4 @@ if %[ -n "$(command git status 2>/dev/null)" ] %{
   hook global WinCreate .* %{ git show-diff }
   hook global BufWritePost .* %{ git show-diff }
   hook global ModeChange insert:normal %{ git show-diff }
-}
-
-# use clipboard when in x session
-if %[ -n "$DISPLAY" ] %{
-  hook global NormalKey y|d|c %{ nop %sh{
-      printf %s "$kak_main_reg_dquote" | xsel --input --clipboard
-    }
-  }
-  map global -docstring "clipboard paste above" user P '!xsel --output --clipboard<ret>'
-  map global -docstring "clipboard paste below" user p '<a-!>xsel --output --clipboard<ret>'
 }
