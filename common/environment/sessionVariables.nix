@@ -1,14 +1,15 @@
 { pkgs, ... }:
 let
-  inherit (pkgs) go;
-  fd_cmd = "fd -t f -H";
+  inherit (pkgs) go neovim less fd;
+  fd_cmd = "${fd}/bin/fd -t f -H";
+  editor = "${neovim}/bin/nvim";
 in
 {
   # default editor
-  EDITOR = "nvim";
-  VISUAL = "nvim";
+  EDITOR = "${editor}";
+  VISUAL = "${editor}";
   # bat paging only works by setting this manually for some reason
-  BAT_PAGER = "less";
+  BAT_PAGER = "${less}/bin/less";
   # set goroot
   GOROOT = [ "${go}/share/go" ];
   # custome fzf commands

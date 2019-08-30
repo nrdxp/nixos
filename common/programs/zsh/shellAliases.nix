@@ -1,5 +1,14 @@
-{ ... }:
+{ config, pkgs, lib, ... }:
+let
+  inherit (pkgs) bat coreutils diffutils dnsutils dust exa gawk gnugrep nix tmux
+    systemd utillinux zathura zsh
+    ;
+  inherit (lib) mkIf;
+  ifSudo = string: mkIf config.security.sudo.enable string;
+in
 {
+  # list aliases
+  aliases = ''${gawk}/bin/awk -F"[ =]" '/^alias / {print $2":"; $1="";$2=""; print $0}' /etc/zshrc'';
   # editor shortcut
   v = "$EDITOR";
 
@@ -10,40 +19,36 @@
   "....." = "cd ../../../..";
 
   # grep shortcut
-  gi = "grep -Ei";
+  gi = "${gnugrep}/bin/grep -Ei";
 
-  z = "zathura";
+  z = "${zathura}/bin/zathura";
 
   # use bat instead of cat
-  cat = "bat";
+  cat = "${bat}/bin/bat";
 
   # list all bind mounts -- TODO not foolproof
   bml = "print \"bind mounts:\" \\
-             && findmnt | gi \"\\[\"";
+             && ${utillinux}/bin/findmnt | gi \"\\[\"";
 
-  dff = "diff --suppress-common-lines -y";
+  dff = "${diffutils}/bin/diff --suppress-common-lines -y";
 
   # nix shortcuts
-  nxr = "nix-store \\
+  nxr = "${nix}/bin/nix-store \\
               --verify \\
               --repair \\
               --check-contents";
-  ndt = "nix-store -q --tree";
-  nyu = "nix-channel --update && nix-env -u";
-  ni = "nix-env -f \"<nixpkgs>\" -iA";
-
-  # wireless connections
-  wi = "watch -n1 iwconfig";
+  ndt = "${nix}/bin/nix-store -q --tree";
+  ni = "${nix}/bin/nix-env -f \"<nixpkgs>\" -iA";
 
   # nixos-rebuild alias
-  nxsrbd = "sudo nixos-rebuild";
+  nxsrbd = ifSudo "sudo nixos-rebuild";
 
   # echo curret ip address of the system
-  myip = "dig +short \\
+  myip = "${dnsutils}/bin/dig +short \\
              myip.opendns.com @208.67.222.222 2>&1";
 
   # exa aliases
-  ls = "exa";
+  ls = "${exa}/bin/exa";
   l = "ls -l --git --group --header --color-scale";
   lx = "l -Gx";
   la = "l --all";
@@ -52,37 +57,34 @@
   ta = "la -T";
 
   # restart zsh
-  rz = "exec zsh";
+  rz = "exec ${zsh}/bin/zsh";
 
   # tmux alias
-  tm = "tmux new-session -s $USER";
-  tma = "tmux attach -t $USER";
+  tm = "${tmux}/bin/tmux new-session -s $USER";
+  tma = "${tmux}/bin/tmux attach -t $USER";
 
   # human readable
-  df = "df -h";
+  df = "${coreutils}/bin/df -h";
 
   # use dust instead of du
-  du = "dust";
+  du = "${dust}/bin/dust";
 
   # sudo alias to bring in environment
-  si = "env sudo -i";
-  sudo = "sudo -E ";
-  se = "sudoedit";
-
-  # open retroarch in kms mode on vt9
-  rkms = "DISPLAY= sudo openvt -swf -c9 -- retroarch";
+  si = ifSudo "env sudo -i";
+  sudo = ifSudo "sudo -E ";
+  se = ifSudo "sudoedit";
 
   # systemd aliases
-  ctl = "systemctl";
-  stl = "env sudo systemctl";
-  utl = "systemctl --user";
-  stt = "systemctl status";
-  utt = "systemctl --user status";
-  ut = "systemctl --user start";
-  reut = "systemctl --user restart";
-  un = "systemctl --user stop";
-  up = "env sudo systemctl start";
-  reup = "env sudo systemctl restart";
-  dn = "env sudo systemctl stop";
-  jctl = "journalctl";
+  ctl = "${systemd}/bin/systemctl";
+  stl = ifSudo "sudo ${systemd}/bin/systemctl";
+  utl = "${systemd}/bin/systemctl --user";
+  stt = "${systemd}/bin/systemctl status";
+  utt = "${systemd}/bin/systemctl --user status";
+  ut = "${systemd}/bin/systemctl --user start";
+  reut = "${systemd}/bin/systemctl --user restart";
+  un = "${systemd}/bin/systemctl --user stop";
+  up = ifSudo "sudo ${systemd}/bin/systemctl start";
+  reup = ifSudo "sudo ${systemd}/bin/systemctl restart";
+  dn = ifSudo "sudo ${systemd}/bin/systemctl stop";
+  jctl = "${systemd}/bin/journalctl";
 }
