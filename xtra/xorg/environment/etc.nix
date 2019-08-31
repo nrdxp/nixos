@@ -13,7 +13,5 @@ in
     mode = "444";
   };
 
-  "qutebrowser/config.py" = {
-    text = qutebrowserPy;
-  };
+  "qutebrowser/config.py".text = qutebrowserPy;
 }
