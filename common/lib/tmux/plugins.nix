@@ -5,4 +5,5 @@ with pkgs.tmuxPlugins;
   open
   resurrect
   yank
+  vim-tmux-navigator
 ]

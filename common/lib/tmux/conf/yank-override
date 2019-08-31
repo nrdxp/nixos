@@ -1,2 +1,0 @@
-# put yank command here to override tmux yank command
-bind -T copy-mode-vi 'y' send-keys -X copy-pipe 'xsel -ib' \; send -X clear-selection

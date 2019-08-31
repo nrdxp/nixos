@@ -1,18 +1,11 @@
-{ usr, ... }:
-let
-  inherit (builtins) concatStringsSep attrValues;
-  inherit (usr.tmux) conf pluginConf plugins tmuxline;
-
-  tmuxConf = let
-    tmux = concatStringsSep "\n\n"
-      (attrValues conf);
-
-    plugin = pluginConf plugins;
-  in
-    concatStringsSep "\n\n"
-      [ tmuxline tmux plugin ];
-in
+{ ... }:
 {
   enable = true;
-  extraTmuxConf = tmuxConf;
+  aggressiveResize = true;
+  escapeTime = 10;
+  historyLimit = 5000;
+  keyMode = "vi";
+  shortcut = "a";
+  terminal = "screen-256color";
+  baseIndex = 1;
 }

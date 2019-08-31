@@ -1,10 +1,3 @@
-# # act like GNU screen
-unbind C-b
-set -g prefix C-a
-
-# Allow C-A a to send prefix to application
-bind C-a send-prefix
-
 # Enable mouse mode (tmux 2.1 and above)
 set -g mouse on
 
@@ -14,27 +7,11 @@ setw -g automatic-rename on
 # Enable focus events
 set -g focus-events on
 
-# start window index of 1
-set -g base-index 1
-setw -g pane-base-index 1
-
-# set size to smallest client actually viewing
-setw -g aggressive-resize on
-
 # truecolor in xterm
 set -ga terminal-overrides ",st*:Ss@,xterm-256color:Tc,st-256color:Tc"
 
-# default term
-set -g default-terminal "screen-256color"
-
 # Start a non login shell
 set -g default-command "${SHELL}"
-
-# Lowers the delay time between the prefix key and other keys
-set -sg escape-time 1
-
-# When in Copy mode, act like vim
-setw -g mode-keys vi
 
 # pane movement
 
@@ -76,5 +53,3 @@ bind-key -n C-M-l resize-pane -R
 
 # New copy mode keybindings for tmux-master
 bind -T copy-mode-vi 'v' send-keys -X begin-selection
-
-set -g history-limit 5000
