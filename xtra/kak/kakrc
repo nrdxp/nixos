@@ -10,16 +10,27 @@ hook global WinSetOption filetype=(elm) %{
 
 hook global WinCreate ^[^*]+$ %{ add-highlighter window/ number-lines  }
 
+# colorscheme
+face global Information yellow,default
+face global MenuBackground black,white
+face global MenuForeground white,black
+face global comment white+d
+
 
 map global normal <a-q> ': delete-buffer<ret>'
 map global normal <c-s> 'Z%2@z: write<ret>'
 map global normal <c-q> ': quit<ret>'
 map global normal <c-a-n> ': buffer-next<ret>'
 map global normal <c-a-p> ': buffer-previous<ret>'
-map global insert <a-k> <esc>
 map global -docstring "comment line" user c ': comment-line<ret>'
 map global -docstring "comment block" user C ': comment-block<ret>'
 map -docstring "format buffer" global user f ': format<ret>'
+
+# jj to leave insert mode
+hook global InsertChar j %{ try %{
+  exec -draft hH <a-k>jj<ret> d
+  exec <esc>
+}}
 
 set global ui_options ncurses_assistant=none
 set global tabstop 2
