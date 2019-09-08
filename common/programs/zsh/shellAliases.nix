@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 let
-  inherit (pkgs) bat coreutils diffutils dnsutils dust exa gawk gnugrep nix tmux
-    systemd utillinux zathura zsh
+  inherit (pkgs) bat coreutils diffutils dnsutils dust gawk gnugrep lsd nix
+    procs tmux systemd utillinux zathura zsh
     ;
   inherit (lib) mkIf;
   ifSudo = string: mkIf config.security.sudo.enable string;
@@ -26,6 +26,9 @@ in
   # use bat instead of cat
   cat = "${bat}/bin/bat";
 
+  # use procs for ps
+  ps = "${procs}/bin/procs";
+
   # list all bind mounts -- TODO not foolproof
   bml = "print \"bind mounts:\" \\
              && ${utillinux}/bin/findmnt | gi \"\\[\"";
@@ -47,14 +50,10 @@ in
   myip = "${dnsutils}/bin/dig +short \\
              myip.opendns.com @208.67.222.222 2>&1";
 
-  # exa aliases
-  ls = "${exa}/bin/exa";
-  l = "ls -l --git --group --header --color-scale";
-  lx = "l -Gx";
-  la = "l --all";
-  lax = "la -Gx";
-  t = "l -T";
-  ta = "la -T";
+  # lsd aliases
+  ls = "${lsd}/bin/lsd";
+  l = "ls -l --total-size";
+  la = "l -lA --total-size";
 
   # restart zsh
   rz = "exec ${zsh}/bin/zsh";

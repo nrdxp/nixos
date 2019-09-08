@@ -1,6 +1,6 @@
 { pkgs, ... }:
 let
-  inherit (pkgs) exa gawk gnused less man ripgrep;
+  inherit (pkgs) gawk gnused lsd less man ripgrep;
   TMUX = "\${+TMUX}";
 in
 ''
@@ -54,12 +54,11 @@ in
   nixpkgs () { cd ~nixpkgs }
 
   # convenient less wrappers
-  tl () {
-    ${exa}/bin/exa -l --git --group --header --color-scale -T $@ --color=always | ${less}/bin/less
+  t () {
+    ${lsd}/bin/lsd -l --tree --color always --icon always $@ | ${less}/bin/less
   }
-  tal () {
-    ${exa}/bin/exa -l --git --group --header --color-scale -T --all $@ --color=always \
-    | ${less}/bin/less
+  ta () {
+    ${lsd}/bin/lsd -lA --tree --color always --icon always $@ | ${less}/bin/less
   }
 
   # pipe rg into less with colors
