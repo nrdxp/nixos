@@ -1,11 +1,20 @@
 eval %sh{kak-lsp --kakoune -s $kak_session}
-hook global WinSetOption filetype=(elm) %{
+hook global WinSetOption filetype=(elm|rust) %{
+  hook global WinSetOption filetype=rust %{
+  # racer.kak conflicts with rls completions; keep before ls-enable
+    racer-disable-autocomplete
+  # remove apostrophe from auto closing pairs; annoying for rust lifetimes
+    set global auto_pairs ( ) { } [ ] '"' '"' ` `
+  }
   lsp-enable
   lsp-auto-hover-enable
   map -docstring "language-server mode" global user l ': enter-user-mode lsp<ret>'
-  set global formatcmd "elm-format --stdin --yes --elm-version 0.19"
-  set global lsp_auto_highlight_references true
   set global lsp_hover_anchor true
+  set global lsp_auto_highlight_references true
+  # elm formating is currently broken in els so use formatcmd as workaround
+  hook global WinSetOption filetype=elm %{
+    set global formatcmd "elm-format --stdin --yes --elm-version 0.19"
+  }
 }
 
 hook global WinCreate ^[^*]+$ %{ add-highlighter window/ number-lines  }
@@ -15,6 +24,8 @@ face global Information yellow,default
 face global MenuBackground black,white
 face global MenuForeground white,black
 face global comment white+d
+face global meta blue
+addhl global/ column 80 SecondaryCursor
 
 
 map global normal <a-q> ': delete-buffer<ret>'
