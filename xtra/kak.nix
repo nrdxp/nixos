@@ -1,10 +1,11 @@
 { pkgs, ... }:
 let
   inherit (builtins) readFile fetchurl;
+  inherit (pkgs) kak-lsp kakoune kakounePlugins kakoune-unwrapped;
 in
 {
-  imports = [ ./home.nix ];
-  environment.systemPackages = with pkgs; let
+  imports = [ ./rust.nix ];
+  environment.systemPackages = let
     kak = kakoune.override {
       configure.plugins = with kakounePlugins; [
         (kak-fzf.override { fzf = pkgs.skim; })
@@ -15,18 +16,16 @@ in
       ];
     };
   in
-    with elmPackages;
-    [ kak kak-lsp elm elm-analyse elm-format elm-test ];
+    [ kak kak-lsp kakoune-unwrapped ];
 
   programs.zsh.shellAliases = {
-    k = "kak";
+    k = "kak -u /etc/xdg/kak";
   };
-  home-manager.users.nrd.home.file = {
-    ".config/kak/kakrc".source = ./kak/kakrc;
-    ".config/kak-lsp/kak-lsp.toml".source = ./kak/kak-lsp.toml;
-    ".config/kak/autoload/plugins".source = ./kak/plugins;
-    ".config/kak/autoload/default".source = "${pkgs.kakoune-unwrapped}/share/kak/rc";
-    ".config/kak/autoload/move-line.kak".text = readFile (
+  environment.etc = {
+    "xdg/kak/kakrc".source = ./kak/kakrc;
+    "xdg/kak/autoload/plugins".source = ./kak/plugins;
+    "xdg/kak/autoload/default".source = "${kakoune-unwrapped}/share/kak/rc";
+    "xdg/kak/autoload/move-line.kak".text = readFile (
       fetchurl
         https://raw.githubusercontent.com/alexherbo2/move-line.kak/master/rc/move-line.kak
     )
@@ -35,13 +34,12 @@ in
       map global normal "<a-'>" ': move-line-above %val{count}<ret>'
     ''
     ;
-    ".config/kak/autoload/kakboard.kak".text = readFile (
+    "xdg/kak/autoload/kakboard.kak".text = readFile (
       fetchurl
         https://raw.githubusercontent.com/lePerdu/kakboard/master/kakboard.kak
     )
     + ''
       hook global WinCreate .* %{ kakboard-enable }
-    ''
-    ;
+    '';
   };
 }
