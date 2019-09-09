@@ -3,8 +3,6 @@ let
   inherit (usr.tmux) plugins;
 
   sysPkgs = with pkgs; [
-    bat
-    exa
     fd
     git
     gnused
@@ -12,11 +10,9 @@ let
     lsof
     python
     ripgrep
-    thefuck
     zsh-plugins
     zsh
     tig
-    du-dust
     ncdu
     tokei
     pass
@@ -32,20 +28,13 @@ let
     unrar
     unzip
     go
-    clang
     tmux
     bind
     xsel
-    hlint
     neovim
-    racer
-    fzf
     skim
     gnupg
     pciutils
-    ltrace
-    valgrind
-    gdb
   ];
 in
 sysPkgs ++ plugins
