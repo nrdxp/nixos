@@ -12,7 +12,7 @@ in
 
   # if in tmux launch fzf in tmux pane
   [[ ${TMUX} == 1 ]] \
-    && FZF_TMUX=1
+    && SKIM_TMUX=1
 
   #load compinit
   autoload -Uz compinit

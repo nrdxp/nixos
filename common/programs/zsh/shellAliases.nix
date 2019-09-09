@@ -1,6 +1,6 @@
 { config, pkgs, lib, ... }:
 let
-  inherit (pkgs) bat coreutils diffutils dnsutils dust gawk gnugrep lsd nix
+  inherit (pkgs) bat coreutils diffutils dnsutils du-dust gawk gnugrep lsd nix
     procs tmux systemd utillinux zathura zsh
     ;
   inherit (lib) mkIf;
@@ -66,7 +66,7 @@ in
   df = "${coreutils}/bin/df -h";
 
   # use dust instead of du
-  du = "${dust}/bin/dust";
+  du = "${du-dust}/bin/dust";
 
   # sudo alias to bring in environment
   si = ifSudo "env sudo -i";

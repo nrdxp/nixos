@@ -40,6 +40,7 @@ let
     neovim
     racer
     fzf
+    skim
     gnupg
     pciutils
     ltrace
