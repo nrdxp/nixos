@@ -88,7 +88,7 @@ if -params 2.. %{ evaluate-commands %sh{
 
 # show git diff on sidebar if it git repository
 if %[ "$(command git status 2>/dev/null)" ] %{
-  hook buffer WinCreate .* %{ git show-diff }
-  hook buffer BufWritePost .* %{ git show-diff }
-  hook buffer ModeChange insert:normal %{ git show-diff }
+  hook global WinCreate .* %{ git show-diff }
+  hook global BufWritePost .* %{ git show-diff }
+  hook global ModeChange insert:normal %{ git show-diff }
 }
