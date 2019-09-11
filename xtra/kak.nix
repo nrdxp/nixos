@@ -1,12 +1,12 @@
 { pkgs, ... }:
 let
   inherit (builtins) readFile fetchurl;
-  inherit (pkgs) cquery kak-lsp kakoune kakoune-unwrapped;
+  inherit (pkgs) cquery kak-lsp kakoune kakoune-unwrapped nixpkgs-fmt;
 in
 {
   imports = [ ./rust.nix ];
   environment.systemPackages =
-    [ cquery kakoune kak-lsp kakoune-unwrapped ];
+    [ cquery kakoune kak-lsp kakoune-unwrapped nixpkgs-fmt ];
 
   programs.zsh.shellAliases = {
     k = "kak -u /etc/xdg/kak";
