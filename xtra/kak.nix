@@ -38,17 +38,17 @@ in
 
   nixpkgs.overlays = let
     kak = self: super: {
-      kakoune = (
-        super.kakoune.override {
-          configure.plugins = with super.kakounePlugins; [
-            (kak-fzf.override { fzf = super.skim; })
-            kak-powerline
-            kak-auto-pairs
-            kak-vertical-selection
-            kak-buffers
-          ];
-        }
-      ).overrideAttrs (
+      kakoune = super.kakoune.override {
+        configure.plugins = with super.kakounePlugins; [
+          (kak-fzf.override { fzf = super.skim; })
+          kak-powerline
+          kak-auto-pairs
+          kak-vertical-selection
+          kak-buffers
+        ];
+      };
+
+      kakoune-unwrapped = super.kakoune-unwrapped.overrideAttrs (
         o: {
           src = super.fetchFromGitHub {
             owner = "nrdxp";
