@@ -1,22 +1,12 @@
 { pkgs, ... }:
 let
   inherit (builtins) readFile fetchurl;
-  inherit (pkgs) kak-lsp kakoune kakounePlugins kakoune-unwrapped;
+  inherit (pkgs) kak-lsp kakoune kakoune-unwrapped;
 in
 {
   imports = [ ./rust.nix ];
-  environment.systemPackages = let
-    kak = kakoune.override {
-      configure.plugins = with kakounePlugins; [
-        (kak-fzf.override { fzf = pkgs.skim; })
-        kak-powerline
-        kak-auto-pairs
-        kak-vertical-selection
-        kak-buffers
-      ];
-    };
-  in
-    [ kak kak-lsp kakoune-unwrapped ];
+  environment.systemPackages =
+    [ kakoune kak-lsp kakoune-unwrapped ];
 
   programs.zsh.shellAliases = {
     k = "kak -u /etc/xdg/kak";
@@ -40,6 +30,33 @@ in
     )
     + ''
       hook global WinCreate .* %{ kakboard-enable }
-    '';
+    ''
+    ;
   };
+
+  nixpkgs.overlays = let
+    kak = self: super: {
+      kakoune = (
+        super.kakoune.override {
+          configure.plugins = with super.kakounePlugins; [
+            (kak-fzf.override { fzf = super.skim; })
+            kak-powerline
+            kak-auto-pairs
+            kak-vertical-selection
+            kak-buffers
+          ];
+        }
+      ).overrideAttrs (
+        o: {
+          src = super.fetchFromGitHub {
+            owner = "nrdxp";
+            repo = "kakoune";
+            rev = "de6d4722debaca9b39f17a2431227a287cf9927f";
+            sha256 = "0bk7cdyqpb67a2a71nh6gff8vqgdr31hsfak2kdf606kp0j5l3br";
+          };
+        }
+      );
+    };
+  in
+    [ kak ];
 }
