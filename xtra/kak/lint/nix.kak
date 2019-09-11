@@ -14,5 +14,4 @@ hook -group lint global WinSetOption filetype=nix %{
     format
     lint
   }
-  lint
 }
