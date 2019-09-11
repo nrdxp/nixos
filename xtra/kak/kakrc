@@ -1,41 +1,3 @@
-eval %sh{kak-lsp --kakoune -s $kak_session}
-hook global WinSetOption filetype=(elm|rust) %{
-  hook global WinSetOption filetype=rust %{
-  # racer.kak conflicts with rls completions; keep before ls-enable
-    racer-disable-autocomplete
-  # remove apostrophe from auto closing pairs; annoying for rust lifetimes
-    set global auto_pairs ( ) { } [ ] '"' '"' ` `
-  }
-  lsp-enable
-  lsp-auto-hover-enable
-  map -docstring "language-server mode" global user l ': enter-user-mode lsp<ret>'
-  set global lsp_hover_anchor true
-  set global lsp_auto_highlight_references true
-  # elm formating is currently broken in els so use formatcmd as workaround
-  hook global WinSetOption filetype=elm %{
-    set global formatcmd "elm-format --stdin --yes --elm-version 0.19"
-  }
-}
-
-hook global WinSetOption filetype=nix %{
-  set buffer lintcmd '
-    run () {
-      nix-instantiate --parse $1 2>&1 >&- > /dev/null |
-      awk ''
-        {printf $NF ":" " "}
-        !($NF="") !($(NF-1)="") {sub(/,  $/, "")}1
-      ''
-    } && run \
-  '
-  lint-enable
-  set buffer formatcmd "nixpkgs-fmt"
-  hook buffer BufWritePre .* %{
-    format
-    lint
-  }
-  lint
-}
-
 hook global WinCreate ^[^*]+$ %{ add-highlighter window/ number-lines  }
 
 # colorscheme
@@ -46,7 +8,7 @@ face global comment white+d
 face global meta blue
 addhl global/ column 80 SecondaryCursor
 
-
+# useful mappings
 map global normal <a-q> ': delete-buffer<ret>'
 map global normal <c-s> 'Z%2@z: write<ret>'
 map global normal <c-q> ': quit<ret>'
@@ -55,6 +17,18 @@ map global normal <c-a-p> ': buffer-previous<ret>'
 map global -docstring "comment line" user c ': comment-line<ret>'
 map global -docstring "comment block" user C ': comment-block<ret>'
 map -docstring "format buffer" global user f ': format<ret>'
+
+# splits just like vim using tmux
+define-command -params 0.. -file-completion \
+  -docstring "split tmux pane vertically" split \
+  %{ tmux-terminal-vertical kak -c %val{session} -e edit! %arg{@} }
+
+define-command -params 0.. -file-completion \
+  -docstring "split tmux pane horizontally" vsplit \
+  %{ tmux-terminal-horizontal kak -c %val{session} -e edit! %arg{@} }
+
+alias global sp split
+alias global vs vsplit
 
 # jj to leave insert mode
 hook global InsertChar j %{ try %{
@@ -113,8 +87,8 @@ if -params 2.. %{ evaluate-commands %sh{
 }}
 
 # show git diff on sidebar if it git repository
-if %[ -n "$(command git status 2>/dev/null)" ] %{
-  hook global WinCreate .* %{ git show-diff }
-  hook global BufWritePost .* %{ git show-diff }
-  hook global ModeChange insert:normal %{ git show-diff }
+if %[ "$(command git status 2>/dev/null)" ] %{
+  hook buffer WinCreate .* %{ git show-diff }
+  hook buffer BufWritePost .* %{ git show-diff }
+  hook buffer ModeChange insert:normal %{ git show-diff }
 }

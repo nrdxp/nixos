@@ -1,12 +1,12 @@
 { pkgs, ... }:
 let
   inherit (builtins) readFile fetchurl;
-  inherit (pkgs) kak-lsp kakoune kakoune-unwrapped;
+  inherit (pkgs) cquery kak-lsp kakoune kakoune-unwrapped;
 in
 {
   imports = [ ./rust.nix ];
   environment.systemPackages =
-    [ kakoune kak-lsp kakoune-unwrapped ];
+    [ cquery kakoune kak-lsp kakoune-unwrapped ];
 
   programs.zsh.shellAliases = {
     k = "kak -u /etc/xdg/kak";
@@ -14,6 +14,8 @@ in
   environment.etc = {
     "xdg/kak/kakrc".source = ./kak/kakrc;
     "xdg/kak/autoload/plugins".source = ./kak/plugins;
+    "xdg/kak/autoload/lint".source = ./kak/lint;
+    "xdg/kak/autoload/lsp".source = ./kak/lsp;
     "xdg/kak/autoload/default".source = "${kakoune-unwrapped}/share/kak/rc";
     "xdg/kak/autoload/move-line.kak".text = readFile (
       fetchurl
