@@ -8,8 +8,7 @@ set $down j
 set $up k
 set $right l
 # preferred terminal emulator
-set $term alacritty
-
+set $term alacritty -e tmux new-session -A -snrd
 # preferred browser
 set $browser qutebrowser
 
@@ -29,18 +28,7 @@ set $volume "dzvol -fn 'DejaVu Sans Mono for Powerline-16:normal'"
 ### Autostart configuration
 # launch browser and tmux session in $terminal on launch
 exec $browser
-exec $term -e tmux new-session -A -snrd
-
-### Idle configuration
-exec swayidle -w \
-         timeout 300 'swaylock -f -c 000000' \
-         timeout 600 'swaymsg "output * dpms off"' \
-              resume 'swaymsg "output * dpms on"' \
-         before-sleep 'swaylock -f -c 000000'
-
-# This will lock your screen after 300 seconds of inactivity, then turn off
-# your displays after another 300 seconds, and turn your screens back on when
-# resumed. It will also lock your screen before your computer goes to sleep.
+exec $term
 
 ### Input configuration
 #
@@ -70,7 +58,7 @@ exec swayidle -w \
     bindsym $mod+Return exec $term
 
     # Start browser
-    bindsym $mod+b exec $browser
+    bindsym $mod+Shift+b exec $browser
 
     # Kill focused window
     bindsym $mod+Shift+c kill
@@ -155,16 +143,13 @@ exec swayidle -w \
     # You can "split" the current object of your focus with
     # $mod+b or $mod+v, for horizontal and vertical splits
     # respectively.
-    bindsym $mod+Shift+b splith
-    bindsym $mod+Shift+v splitv
+    bindsym $mod+b splith
+    bindsym $mod+v splitv
 
     # Switch the current container between different layout styles
     bindsym $mod+s layout stacking
     bindsym $mod+w layout tabbed
     bindsym $mod+e layout toggle split
-
-    # Make the current focus fullscreen
-    bindsym $mod+f fullscreen
 
     # Toggle the current focus between tiling and floating mode
     bindsym $mod+Shift+t floating toggle
