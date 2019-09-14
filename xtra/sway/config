@@ -30,6 +30,10 @@ set $volume "dzvol -fn 'DejaVu Sans Mono for Powerline-16:normal'"
 exec $browser
 exec $term
 
+### idle configuration
+
+exec swayidle -w before-sleep 'swaylock -f -c 000000'
+
 ### Input configuration
 #
 # Example configuration:
