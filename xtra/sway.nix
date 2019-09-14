@@ -26,5 +26,7 @@ in
       ;
   };
 
-  environment.etc."sway/config".source = ./sway/config;
+  environment.etc."sway/config".text = import ./sway/config.nix {
+    inherit pkgs;
+  };
 }
