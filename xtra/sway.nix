@@ -42,7 +42,7 @@ in
   };
 
   nixpkgs.overlays = let
-    redshift_ = self: super: {
+    overlay = self: super: {
       redshift = super.redshift.overrideAttrs (
         o: {
           src = super.fetchFromGitHub {
@@ -53,7 +53,17 @@ in
           };
         }
       );
+      wl-clipboard = super.wl-clipboard.overrideAttrs (
+        o: {
+          src = super.fetchFromGitHub {
+            owner = "bugaevc";
+            repo = "wl-clipboard";
+            rev = "c010972e6b0d2eb3002c49a6a1b5620ff5f7c910";
+            sha256 = "020l3jy9gsj6gablwdfzp1wfa8yblay3axdjc56i9q8pbhz7g12j";
+          };
+        }
+      );
     };
   in
-    [ redshift_ ];
+    [ overlay ];
 }
