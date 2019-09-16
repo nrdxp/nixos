@@ -21,6 +21,8 @@ with pkgs;
   xmonad-with-packages
   xorg.xdpyinfo
   feh
+  imlib2
+  imagemagick
   xss-lock
   librsvg
   gnome-themes-extra
