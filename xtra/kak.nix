@@ -1,12 +1,22 @@
 { pkgs, ... }:
 let
   inherit (builtins) readFile fetchurl;
-  inherit (pkgs) cquery kak-lsp kakoune kakoune-unwrapped nixpkgs-fmt;
+  inherit (pkgs) cquery kak-lsp kakoune kakoune-unwrapped nixpkgs-fmt
+    python3Packages python2Packages
+    ;
+  inherit (python3Packages) python-language-server;
 in
 {
   imports = [ ./rust.nix ];
   environment.systemPackages =
-    [ cquery kakoune kak-lsp kakoune-unwrapped nixpkgs-fmt ];
+    [
+      cquery
+      kakoune
+      kak-lsp
+      kakoune-unwrapped
+      nixpkgs-fmt
+      python-language-server
+    ];
 
   programs.zsh.shellAliases = {
     k = "kak -u /etc/xdg/kak";
