@@ -1,6 +1,6 @@
 { pkgs, usr, ... }:
 let
-  qutebrowserPy = usr.qutebrowser."config.py";
+  inherit (usr.qutebrowser) config;
 in
 {
   "xdg/gtk-3.0/settings.ini" = {
@@ -13,5 +13,5 @@ in
     mode = "444";
   };
 
-  "qutebrowser/config.py".text = qutebrowserPy;
+  "qutebrowser/config.py".text = config;
 }

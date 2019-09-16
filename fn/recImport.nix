@@ -11,7 +11,8 @@ let
 
   recImport :: Path -> AttrSet */
   recImport = let
-  # prepAttr :: Path -> (AttrSet => { name : value })
+    /*
+    prepAttr :: Path -> (AttrSet => { name : value }) */
     prepAttr = fullPath:
       if pathType fullPath == "regular"
       then
@@ -29,18 +30,18 @@ let
         name = baseNameOf fullPath;
         value = recImport fullPath;
       };
-
-  # applyFilter :: Path -> AttrSet
+    /*
+    applyFilter :: Path -> AttrSet */
     applyFilter = dir:
       filterAttrs
         (filterRules dir)
         (readDir dir);
-
-/*  filterRules ::
-      Path                 ->
-      (String => AttrName) ->
-      (Any => AttrValue)   ->
-      Bool */
+    /*
+    filterRules ::
+        Path                 ->
+        (String => AttrName) ->
+        (Any => AttrValue)   ->
+        Bool */
     filterRules = dir: n: v:
       !  (hasPrefix "." n)
       && (
@@ -55,6 +56,7 @@ let
            || (
                 v == "regular"
                 && n != "default.nix"
+                && !(hasPrefix "_" n)
               )
          );
 
