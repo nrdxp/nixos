@@ -52,8 +52,9 @@ in
 
   # lsd aliases
   ls = "${lsd}/bin/lsd";
-  l = "ls -l --total-size";
-  la = "l -lA --total-size";
+  l = "ls -l";
+  la = "l -A";
+  lsd = "l --total-size";
 
   # restart zsh
   rz = "exec ${zsh}/bin/zsh";
