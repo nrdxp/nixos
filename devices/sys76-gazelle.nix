@@ -12,7 +12,7 @@ in
   ];
 
   # specify device for other parts of configuration
-  lib.devices.device = "sys76-gazelle";
+  lib.devices.current = "Gazelle";
 
   nix.maxJobs = mkDefault 4;
 

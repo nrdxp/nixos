@@ -1,6 +1,6 @@
-{ ... }:
+{ usr, ... }:
 {
-  hostName = "NixBox";
+  hostName = usr.devices.current;
 
   networkmanager = {
     enable = true;
