@@ -12,7 +12,7 @@
     ./xtra/laptop.nix
     ./xtra/games.nix
     ./xtra/stubby.nix
-    ./abstract/audio-ws.nix
+    ./abstract/workstation.nix
     ./xtra/libvirtd.nix
     ./xtra/webdev.nix
     ./xtra/pulseaudio.nix
