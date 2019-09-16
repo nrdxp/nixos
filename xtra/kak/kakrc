@@ -8,9 +8,14 @@ face global comment white+d
 face global meta blue
 addhl global/ column 80 SecondaryCursor
 
+# convert tabs to spaces and cleanup trailing whitespace on save
+hook global BufWritePre ^[^*]+$ %{
+  try %{ execute-keys -draft \%@s\h+$<ret>d }
+}
+
 # useful mappings
 map global normal <a-q> ': delete-buffer<ret>'
-map global normal <c-s> 'Z%2@z: write<ret>'
+map global normal <c-s> ': write<ret>'
 map global normal <c-q> ': quit<ret>'
 map global normal <c-a-n> ': buffer-next<ret>'
 map global normal <c-a-p> ': buffer-previous<ret>'
