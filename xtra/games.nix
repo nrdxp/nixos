@@ -1,6 +1,6 @@
 { pkgs, ... }:
 {
-  imports = [ ./xorg.nix ./home.nix ./games ];
+  imports = [ ./xorg.nix ./games ];
   environment.systemPackages = with pkgs;
     [ retroarchBare black_chocobo steam ];
 
