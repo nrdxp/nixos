@@ -25,8 +25,13 @@ default_border pixel
 # volume display
 set $volume "dzvol -fn 'DejaVu Sans Mono for Powerline-16:normal'"
 
+set $φ 38 ppt
+set $Φ 62 ppt
+
 ### Autostart configuration
 # launch browser and tmux session in $terminal on launch
+
+for_window [app_id="Alacritty"] resize set width $φ
 exec $browser
 exec $term
 
@@ -166,13 +171,14 @@ for_window [app_id=".*"] inhibit_idle fullscreen
     bindsym $mod+e layout toggle split
 
     # Toggle the current focus between tiling and floating mode
-    bindsym $mod+Shift+t floating toggle
-
-    # resize window to approximately φ ratio of screen
-    bindsym $mod+Shift+space exec swaymsg resize set width 38 ppt
+    bindsym $mod+t floating toggle
 
     # Swap focus between the tiling area and the floating area
-    bindsym $mod+space focus mode_toggle
+    bindsym $mod+Shift+t focus mode_toggle
+
+    # resize window to approximately φ ratio of screen
+    bindsym $mod+Shift+space exec swaymsg resize set width $φ
+    bindsym $mod+space exec swaymsg resize set width $Φ
 
     # Move focus to the parent container
     bindsym $mod+a focus parent
