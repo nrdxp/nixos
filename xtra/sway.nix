@@ -1,7 +1,8 @@
-{ options, pkgs, ... }:
+{ config, options, pkgs, ... }:
 let
-  inherit (pkgs) qt5 alacritty dzvol wl-clipboard;
+  inherit (pkgs) alacritty dzvol qt5 waybar wl-clipboard;
   inherit (qt5) qtwayland;
+  inherit (config.hardware) pulseaudio;
 in
 {
   programs.sway = {
@@ -14,7 +15,7 @@ in
       export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
       # Fix for some Java AWT applications (e.g. Android Studio),
       # use this if they aren't displayed properly:
-      export _JAVA_AWT_WM_NONREPARENTING=1    
+      export _JAVA_AWT_WM_NONREPARENTING=1
     '';
     extraPackages = options.programs.sway.extraPackages.default
       ++ [
@@ -22,12 +23,16 @@ in
            alacritty
            dzvol
            wl-clipboard
+           (waybar.override { pulseSupport = pulseaudio.enable; })
          ]
       ;
   };
 
-  environment.etc."sway/config".text = import ./sway/config.nix {
-    inherit pkgs;
+  environment.etc = {
+    "sway/config".text = import ./sway/config.nix {
+      inherit pkgs;
+    };
+    "xdg/waybar".source = ./sway/waybar;
   };
 
   services.redshift = {

@@ -14,10 +14,10 @@ set $browser qutebrowser
 
 # Your preferred application launcher
 # Note: it's recommended that you pass the final command to sway
-set $menu dmenu_path | dmenu | xargs swaymsg exec --
+set $menu dmenu_path | dmenu -b | xargs swaymsg exec --
 
 # network manager
-set $net_menu networkmanager_dmenu
+set $net_menu networkmanager_dmenu -b
 
 # don't show window titles only show single pixel as border
 default_border pixel
@@ -218,15 +218,5 @@ bindsym $mod+r mode "resize"
 #
 # Read `man 5 sway-bar` for more information about this section.
 bar {
-    position top
-
-    # When the status_command prints a new line to stdout, swaybar updates.
-    # The default just shows the current date and time.
-    status_command while date +'%m/%d %l:%M%p'; do sleep 1; done
-
-    colors {
-        statusline #ffffff
-        background #323232
-        inactive_workspace #32323200 #32323200 #5c5c5c
-    }
+  swaybar_command waybar
 }
