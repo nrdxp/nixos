@@ -1,4 +1,7 @@
 hook -group lint global WinSetOption filetype=nix %{
+  # remove '' for nix, annoying for string literals
+  set buffer auto_pairs ( ) { } [ ] '"' '"' ` `
+
   set buffer lintcmd '
     run () {
       nix-instantiate --parse $1 2>&1 >&- > /dev/null |
