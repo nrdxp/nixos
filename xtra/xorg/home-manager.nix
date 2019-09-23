@@ -10,11 +10,12 @@
     ".xinitrc".text = "exec xmonad";
 
     ".config/qutebrowser/config.py" = {
-      text = "config.source('/etc/qutebrowser/config.py')";
+      text = "";
 
       # install spellchecker
       onChange = ''
         ${pkgs.qutebrowser}/share/qutebrowser/scripts/dictcli.py install en-US
+        rm $HOME/qutebrowser/config.py
       '';
     };
 

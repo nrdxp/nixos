@@ -13,5 +13,5 @@ in
     mode = "444";
   };
 
-  "qutebrowser/config.py".text = config;
+  "xdg/qutebrowser/config.py".text = config;
 }

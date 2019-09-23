@@ -9,7 +9,7 @@ in
   users.users.nrd.extraGroups = [ "qbittorrent" ];
 
 
-  environment.etc."qutebrowser/config.py".text = mkAfter ''
+  environment.etc."xdg/qutebrowser/config.py".text = mkAfter ''
     c.url.searchengines['to'] = 'https://torrentz2.eu/search?f={}'
 
     config.bind(',t', """hint all spawn curl -X POST\
