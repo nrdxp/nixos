@@ -1,7 +1,6 @@
-{ lib, pkgs, usr, ... }:
+{ lib, ... }:
 let
   inherit (lib.strings) removeSuffix;
-  inherit (usr.qutebrowser) config;
 in
 self: super: {
   qutebrowser = super.qutebrowser.overrideAttrs (

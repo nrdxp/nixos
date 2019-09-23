@@ -1,4 +1,4 @@
-{ pkgs, usr, ... }:
+{ usr, ... }:
 let
   inherit (usr.qutebrowser) config;
 in

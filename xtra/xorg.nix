@@ -2,6 +2,5 @@
 # for the xorg server and xmonad along with some useful programs and services
 { pkgs, ... }:
 {
-  imports = [ ./home.nix ./xorg ];
-  fonts.fonts = [ pkgs.nerdfonts ];
+  imports = [ ../abstract/indirect/graphical.nix ./xorg ];
 }

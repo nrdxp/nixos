@@ -30,7 +30,6 @@ let
     go
     tmux
     bind
-    xsel
     neovim
     skim
     gnupg
