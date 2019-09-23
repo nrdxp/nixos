@@ -235,6 +235,8 @@ c.url.searchengines = {
     'g': 'https://www.google.com/search?source=&q={}',
     'gi': 'https://www.google.com/search?tbm=isch&q={}',
     'aur': 'https://aur.archlinux.org/packages/?O=0&K={}',
+    'c': 'https://en.cppreference.com/w/cpp/keyword/{}',
+    'r': 'https://doc.rust-lang.org/stable/std/?search={}'
 }
 
 c.url.start_pages = ['https://nixos.org/nixos/manual/options.html']
