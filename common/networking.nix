@@ -1,6 +1,6 @@
 { usr, ... }:
 {
-  hostName = usr.devices.current;
+  hostName = usr.device.name;
 
   networkmanager = {
     enable = true;

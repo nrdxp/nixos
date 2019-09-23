@@ -12,7 +12,8 @@ in
   ];
 
   # specify device for other parts of configuration
-  lib.devices.current = "Gazelle";
+  lib.device.name = "Gazelle";
+  lib.device.screen = 1080;
 
   nix.maxJobs = mkDefault 4;
 

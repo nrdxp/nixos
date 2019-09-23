@@ -1,8 +1,9 @@
-{ config, pkgs, ... }:
+{ pkgs, usr, ... }:
 let
   inherit (pkgs) writeScript mpv;
   inherit (builtins) readFile;
-  max = "height<=1080";
+  inherit (usr.device) screen;
+  max = "height<=${toString screen}";
   mpvBin =
     ''${mpv}/bin/mpv --ytdl-format="bestvideo[${max}]+bestaudo/best[${max}]"'';
 in
