@@ -2,6 +2,9 @@
 let
   inherit (pkgs) writeScript mpv;
   inherit (builtins) readFile;
+  max = "height<=1080";
+  mpvBin =
+    ''${mpv}/bin/mpv --ytdl-format="bestvideo[${max}]+bestaudo/best[${max}]"'';
 in
 ''
   ${readFile ./_config.py}
@@ -19,6 +22,6 @@ in
   ]
 
   config.bind(',p', 'spawn --userscript qute-pass')
-  config.bind(',m', 'hint links spawn ${mpv}/bin/mpv {hint-url}')
-  config.bind(',v', 'spawn -d ${mpv}/bin/mpv {url}')
+  config.bind(',m', 'hint links spawn ${mpvBin} {hint-url}')
+  config.bind(',v', 'spawn -d ${mpvBin} {url}')
 ''
