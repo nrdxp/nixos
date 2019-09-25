@@ -1,6 +1,6 @@
 { pkgs, usr, ... }:
 let
-  inherit (pkgs) writeScript mpv;
+  inherit (pkgs) widevine writeScript mpv;
   inherit (builtins) readFile;
   inherit (usr.device) screen;
   max = "height<=${toString screen}";
@@ -9,6 +9,8 @@ let
 in
 ''
   ${readFile ./_config.py}
+
+  c.qt.args.append('widevine-path=${widevine}/lib/libwidevinecdm.so')
 
   # Editor (and arguments) to use for the `open-editor` command. The
   # following placeholders are defined: * `{file}`: Filename of the file

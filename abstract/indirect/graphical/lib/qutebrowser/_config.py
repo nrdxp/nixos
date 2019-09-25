@@ -21,7 +21,8 @@ c.confirm_quit = ['downloads']
 # Type: List of String
 c.qt.args = [
     'disable-reading-from-canvas', 'enable-native-gpu-memory-buffers',
-    'force-webrtc-ip-handling-policy=default_public_interface_only'
+    'force-webrtc-ip-handling-policy=default_public_interface_only',
+    'no-sandbox'
 ]
 
 # Allow websites to request geolocations.
