@@ -10,4 +10,5 @@ concatStringsSep "\n\n" [
   "source ${zsh-plugins}/plugins.sh\n"
   endrc
   "source ${skim}/share/skim/key-bindings.zsh"
+  ''eval "$(direnv hook zsh)"''
 ]
