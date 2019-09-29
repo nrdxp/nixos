@@ -5,6 +5,7 @@
   optimise.automatic = true;
   useSandbox = false;
   allowedUsers = [ "@wheel" ];
+  trustedUsers = [ "@wheel" ];
   buildCores = 0;
   nixPath = [
     "nixpkgs=/home/nrd/git/nixpkgs"
