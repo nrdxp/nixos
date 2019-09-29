@@ -24,6 +24,7 @@ in
             "wasm32-unknown-unknown"
             "wasm32-unknown-emscripten"
             "asmjs-unknown-emscripten"
+            "x86_64-unknown-linux-musl"
           ];
         }
       )
