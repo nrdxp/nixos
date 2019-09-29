@@ -1,9 +1,10 @@
 { config, pkgs, lib, ... }:
 let
-  inherit (pkgs) bat coreutils diffutils dnsutils du-dust gawk gnugrep lsd nix
-    procs tmux systemd utillinux zathura zsh
-    ;
   inherit (lib) mkIf;
+  inherit (pkgs) bat coreutils diffutils dnsutils du-dust gawk gnugrep lsd nix
+    procs ripgrep tmux systemd utillinux zathura zsh
+    ;
+
   ifSudo = string: mkIf config.security.sudo.enable string;
 in
 {
@@ -19,7 +20,8 @@ in
   "....." = "cd ../../../..";
 
   # grep shortcut
-  gi = "${gnugrep}/bin/grep -Ei";
+  grep = "${ripgrep}/bin/rg";
+  gi = "grep -i";
 
   z = "${zathura}/bin/zathura";
 
