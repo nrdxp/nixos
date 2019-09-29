@@ -165,6 +165,7 @@ for_window [app_id=".*"] inhibit_idle fullscreen
     # We just use 1-10 as the default.
     assign [app_id=$media] workspace 6:media
     for_window [app_id=$media] fullscreen enable
+    [app_id=$media] focus
 #
 # Layout stuff:
 #
