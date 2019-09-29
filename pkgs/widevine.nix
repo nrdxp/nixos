@@ -10,7 +10,7 @@ mkDerivation rec {
   version = "4.10.1440.19";
 
   src = fetchurl {
-    url = "https://dl.google.com/widevine-cdm/${version}-linux-x64.zip";
+    url = "https://dl.google.com/${pname}/${version}-linux-x64.zip";
     sha256 = "1rzsjy2bcsn8r3pspapckq31hhidw2k694apd87q8dz1jjgnm9x3";
   };
 
