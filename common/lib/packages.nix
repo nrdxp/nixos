@@ -3,7 +3,7 @@ with pkgs;
 {
   applications = {
     editors = [ neovim ];
-    version-management = [ git gitAndTools.hub tig ];
+    version-management = [ git git-crypt gitAndTools.hub tig ];
     misc = [ zathura ];
   };
 

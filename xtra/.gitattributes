@@ -1,1 +1,1 @@
-vpn.nix filter=git-crypt diff=git-crypt
+adblocking.nix filter=git-crypt diff=git-crypt
