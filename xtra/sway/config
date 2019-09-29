@@ -41,10 +41,11 @@ exec $term
 ### idle configuration
 
 exec swayidle -w \
-  timeout 300 'swaylock -e -f -c 000000' \
+  timeout 300 'loginctl lock-session' \
   timeout 300 'swaymsg "output * dpms off"' \
   resume 'swaymsg "output * dpms on"' \
-  before-sleep 'swaylock -e -f -c 000000'
+  lock 'swaylock -e -f -c 000000' \
+  before-sleep 'loginctl lock-session'
 
 for_window [class=".*"] inhibit_idle fullscreen
 for_window [app_id=".*"] inhibit_idle fullscreen
@@ -87,6 +88,9 @@ for_window [app_id=".*"] inhibit_idle fullscreen
 
     # start network manager
     bindsym $mod+n exec $net_menu
+
+    # lock screen
+    bindsym $mod+Ctrl+l exec loginctl lock-session
 
     # go fullscreen
     bindsym $mod+f fullscreen
@@ -231,3 +235,5 @@ bindsym $mod+r mode "resize"
 bar {
   swaybar_command waybar
 }
+
+exec "systemctl --user import-environment; systemctl --user start sway-session.target"

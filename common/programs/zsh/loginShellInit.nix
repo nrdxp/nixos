@@ -25,7 +25,9 @@ let
   sOpt = sString ''"[s] Sway"'';
   sExec = sString ''
     "s")
-      exec sway ;;
+      sway
+      exec systemctl --user stop sway-session.target
+      ;;
   '';
 in
 optionalString (

@@ -9,7 +9,7 @@ in
 
   programs.sway = {
     enable = true
-      ;
+    ;
     extraSessionCommands = ''
       export SDL_VIDEODRIVER=wayland
       # needs qt5.qtwayland in systemPackages
@@ -20,20 +20,18 @@ in
       export _JAVA_AWT_WM_NONREPARENTING=1
     '';
     extraPackages = options.programs.sway.extraPackages.default
-      ++ [
-           qtwayland
-           alacritty
-           dzvol
-           wl-clipboard
-           (waybar.override { pulseSupport = pulseaudio.enable; })
-         ]
-      ;
+    ++ [
+      qtwayland
+      alacritty
+      dzvol
+      wl-clipboard
+      (waybar.override { pulseSupport = pulseaudio.enable; })
+    ]
+    ;
   };
 
   environment.etc = {
-    "sway/config".text = import ./sway/config.nix {
-      inherit pkgs;
-    };
+    "sway/config".text = import ./sway/config.nix { inherit pkgs; };
     "xdg/waybar".source = ./sway/waybar;
   };
 
@@ -46,6 +44,17 @@ in
   location = {
     latitude = 38.833881;
     longitude = -104.821365;
+  };
+
+  systemd.user.targets.sway-session = {
+    enable = true;
+    description = "sway compositor session";
+    documentation = [ "man:systemd.special(7)" ];
+
+    bindsTo = [ "graphical-session.target" ];
+    wants = [ "graphical-session-pre.target" ];
+    after = [ "graphical-session-pre.target" ];
+    requiredBy = [ "graphical-session.target" "graphical-session-pre.target" ];
   };
 
   nixpkgs.overlays = let
