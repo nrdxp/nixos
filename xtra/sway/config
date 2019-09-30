@@ -22,9 +22,6 @@ set $net_menu networkmanager_dmenu -b
 # don't show window titles only show single pixel as border
 default_border pixel
 
-# volume display
-set $volume "dzvol -fn 'DejaVu Sans Mono for Powerline-16:normal'"
-
 set $φ 38 ppt
 set $Φ 62 ppt
 
@@ -165,7 +162,7 @@ for_window [app_id=".*"] inhibit_idle fullscreen
     # We just use 1-10 as the default.
     assign [app_id=$media] workspace 6:media
     for_window [app_id=$media] fullscreen enable
-    [app_id=$media] focus
+    # [app_id=$media] focus
 #
 # Layout stuff:
 #

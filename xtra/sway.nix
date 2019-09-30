@@ -1,6 +1,8 @@
-{ config, options, pkgs, ... }:
+{ lib, config, options, pkgs, ... }:
 let
-  inherit (pkgs) alacritty dzvol qt5 waybar wl-clipboard;
+  inherit (pkgs) alacritty bash volnoti qt5 sway swayidle swaylock systemd waybar
+    wl-clipboard
+    ;
   inherit (qt5) qtwayland;
   inherit (config.hardware) pulseaudio;
 in
@@ -23,7 +25,7 @@ in
     ++ [
       qtwayland
       alacritty
-      dzvol
+      volnoti
       wl-clipboard
       (waybar.override { pulseSupport = pulseaudio.enable; })
     ]
@@ -55,6 +57,20 @@ in
     wants = [ "graphical-session-pre.target" ];
     after = [ "graphical-session-pre.target" ];
     requiredBy = [ "graphical-session.target" "graphical-session-pre.target" ];
+  };
+
+  systemd.user.services.volnoti = {
+    enable = true;
+    description = "volnoti volume notification";
+    documentation = [ "volnoti --help" ];
+    wantedBy = [ "sway-session.target" ];
+
+    script = ''${volnoti}/bin/volnoti -n'';
+
+    serviceConfig = {
+      Restart = "always";
+      RestartSec = 3;
+    };
   };
 
   nixpkgs.overlays = let
