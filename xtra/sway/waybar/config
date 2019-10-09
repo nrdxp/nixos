@@ -3,7 +3,7 @@
     // Choose the order of the modules
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": ["sway/window"],
-    "modules-right": ["cpu", "memory", "temperature", "backlight", "pulseaudio", "network", "battery", "clock"],
+    "modules-right": ["cpu", "memory", "temperature", "backlight", "pulseaudio", "network", "battery", "clock", "tray"],
     // Modules configuration
     "sway/mode": {
         "format": "<span style=\"italic\">{}</span>"
@@ -69,5 +69,9 @@
             "car": "",
             "default": ["", "", ""]
         }
+    },
+    "tray": {
+      "icon-size": 21,
+      "spacing": 10
     }
 }
