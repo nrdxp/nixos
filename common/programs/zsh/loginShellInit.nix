@@ -25,7 +25,9 @@ let
   sOpt = sString ''"[s] Sway"'';
   sExec = sString ''
     "s")
+      systemctl --user start dbus.service
       sway
+      systemct --user stop dbus.service
       exec systemctl --user stop sway-session.target
       ;;
   '';
