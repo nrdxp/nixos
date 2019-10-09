@@ -3,12 +3,12 @@ self: super: {
   retroarchBare = super.retroarchBare.overrideAttrs (
     oldAttrs: rec {
       name = "retroarch-bare-${version}";
-      version = "1.7.8.4";
+      version = "1.7.9.2";
 
       src = self.fetchFromGitHub {
         owner = "libretro";
         repo = "RetroArch";
-        sha256 = "1i3i23xwvmck8k2fpalr49np7xjzfg507243mybqrljawlnbxvph";
+        sha256 = "14kay5g9rnm79mly7b4x5jwkidjaki8qqkpf21hnj1r2z1q7bp5b";
         rev = "v${version}";
       };
 
