@@ -14,14 +14,17 @@ with pkgs;
   development = {
     compilers = [ go ];
     interpreters = [ python ];
-    tools.misc = [ lsof binutils ];
+    tools = {
+      analysis = [ bingrep ];
+      misc = [ lsof binutils ];
+    };
   };
 
   shells = [ zsh zsh-plugins ];
 
   tools = {
     admin = [ procs ];
-    compression = [ bzip2 gzip xz ];
+    compression = [ bzip2 gzip xz lrzip ];
     nix = [ nixpkgs-fmt ];
     package-management = [ nix ];
     security = [ gnupg pass ];
