@@ -1,0 +1,4 @@
+{ ... }:
+{
+  users.nrd.extraGroups = [ "video" ];
+}
