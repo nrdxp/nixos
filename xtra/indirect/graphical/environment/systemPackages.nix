@@ -1,7 +1,6 @@
 { pkgs, ... }:
 with pkgs;
 [
-  dmenu
   qutebrowser
   adapta-gtk-theme
   papirus-icon-theme

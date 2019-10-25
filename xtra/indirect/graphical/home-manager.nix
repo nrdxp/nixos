@@ -10,7 +10,7 @@
       # install spellchecker
       onChange = ''
         ${pkgs.qutebrowser}/share/qutebrowser/scripts/dictcli.py install en-US
-        rm $HOME/qutebrowser/config.py
+        rm $HOME/.config/qutebrowser/config.py
       '';
     };
   };

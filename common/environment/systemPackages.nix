@@ -4,6 +4,6 @@ let
 
   sysPkgs = flattenAttrs packages;
 
-  flattenAttrs = import ../../fn/flattenAttrs.nix { inherit lib; };
+  flattenAttrs = import ../../lib/flattenAttrs.nix { inherit lib; };
 in
 sysPkgs ++ tmux.plugins

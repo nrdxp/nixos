@@ -7,7 +7,7 @@ let
   inherit (config.hardware) pulseaudio;
 in
 {
-  imports = [ ../abstract/indirect/graphical.nix ];
+  imports = [ ./indirect/graphical.nix ];
 
   programs.sway = {
     enable = true

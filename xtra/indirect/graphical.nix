@@ -3,7 +3,7 @@ let
   inherit (pkgs) nerdfonts;
 in
 {
-  imports = [ ../../xtra/home.nix ./graphical ];
+  imports = [ ../home.nix ./graphical ];
   fonts.fonts = [ nerdfonts ];
 
   programs.zsh.shellAliases = {

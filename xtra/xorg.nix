@@ -2,5 +2,5 @@
 # for the xorg server and xmonad along with some useful programs and services
 { pkgs, ... }:
 {
-  imports = [ ../abstract/indirect/graphical.nix ./xorg ];
+  imports = [ ./indirect/graphical.nix ./xorg ];
 }

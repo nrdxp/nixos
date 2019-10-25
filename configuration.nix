@@ -10,9 +10,9 @@ args@{ config, ... }:
     # need exactly one device specific configuration
     ./devices/sys76-gazelle.nix
 
-    # 'abstract' combines multiple 'ad hoc' configurations from xtra
+    # 'abstract' combines multiple ad hoc configurations from xtra
     (
-      import ./abstract/workstation.nix (
+      import ./xtra/abstract/workstation.nix (
         args
         // { withWM = ./xtra/sway.nix; }
       )

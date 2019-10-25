@@ -1,5 +1,5 @@
 args@{ pkgs, usr, ... }:
 let
-  recImport = import ../fn/recImport.nix args;
+  recImport = import ../lib/recImport.nix args;
 in
 recImport ./.
