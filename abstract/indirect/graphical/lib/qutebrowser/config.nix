@@ -18,6 +18,6 @@ in
   ]
 
   config.bind(',p', 'spawn --userscript qute-pass')
-  config.bind(',m', 'hint links spawn ${mpvBin} {hint-url}')
+  config.bind(',m', 'hint links spawn -d ${mpvBin} {hint-url}')
   config.bind(',v', 'spawn -d ${mpvBin} {url}')
 ''
