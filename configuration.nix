@@ -1,8 +1,9 @@
-args@{ config, ... }:
+args@{ config
+, usr ? config.lib
+, dirs ? import ./lib/directories.nix
+, ...
+}:
 {
-  # shortcut to locally defined lib to be easily passed around
-  _module.args.usr = config.lib;
-
   imports = [
     # bare minimum
     ./common.nix
@@ -18,7 +19,7 @@ args@{ config, ... }:
       )
     )
 
-    # add ad hoc configuration from 'xtra'
+    # add ad hoc configurations from 'xtra'
     ./xtra/torrent.nix
     ./xtra/laptop.nix
     ./xtra/games.nix

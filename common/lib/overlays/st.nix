@@ -1,7 +1,7 @@
-{ ... }:
+{ dirs, ... }:
 self: super: {
   st = super.st.override
     {
-      patches = ./pkgs/patches/st-config.patch;
+      patches = "${dirs.pkgs}/patches/st-config.patch";
     };
 }

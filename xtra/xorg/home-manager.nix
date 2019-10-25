@@ -1,4 +1,4 @@
-{ pkgs, usr, ... }:
+{ pkgs, usr, dirs, ... }:
 {
   users.nrd.home.file = {
     ".background-image".source =
@@ -6,12 +6,12 @@
 
     ".xinitrc".text = "exec xmonad";
 
-    "shots/dummy" = {
-      onChange = ''
-        rm $HOME/shots/dummy
-      '';
-
+    "${dirs.screenshots}/dummy" = {
       text = "";
+
+      onChange = ''
+        rm $HOME/${dirs.screenshots}/dummy
+      '';
     };
 
     ".xmonad/xmonad.hs".text = usr.xmonad."xmonad.hs";

@@ -1,4 +1,4 @@
-{ ... }:
+{ dirs, ... }:
 self: super: {
-  dzvol = super.callPackage ./pkgs/dzvol.nix {};
+  dzvol = super.callPackage "${dirs.pkgs}/dzvol.nix" {};
 }

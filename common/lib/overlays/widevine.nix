@@ -1,5 +1,5 @@
-{ ... }:
+{ dirs, ... }:
 self: super:
 {
-  widevine = super.callPackage ../../../pkgs/widevine.nix {};
+  widevine = super.callPackage "${dirs.pkgs}/widevine.nix" {};
 }

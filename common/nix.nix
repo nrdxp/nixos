@@ -1,4 +1,4 @@
-{ options, ... }:
+{ options, dirs, ... }:
 {
   autoOptimiseStore = true;
   gc.automatic = true;
@@ -9,7 +9,7 @@
   buildCores = 0;
   nixPath = [
     "nixpkgs=/home/nrd/git/nixpkgs"
-    "nixos-config=/etc/nixos/configuration.nix"
-    "nixpkgs-overlays=/etc/nixos/overlays-compat/"
+    "nixos-config=${dirs.nixos}/configuration.nix"
+    "nixpkgs-overlays=${dirs.nixos}/overlays-compat"
   ];
 }

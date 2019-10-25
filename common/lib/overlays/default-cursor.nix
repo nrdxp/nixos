@@ -1,4 +1,4 @@
-{ ... }:
+{ dirs, ... }:
 self: super: {
-  default-cursor = super.callPackage ./pkgs/cursor.nix {};
+  default-cursor = super.callPackage "${dirs.pkgs}/cursor.nix" {};
 }

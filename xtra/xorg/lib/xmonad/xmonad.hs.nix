@@ -1,7 +1,8 @@
-{ pkgs, usr, ... }:
+{ pkgs, usr, dirs, ... }:
 let
   inherit (pkgs) writeScript dzvol;
   inherit (usr.xmonad) scripts;
+  inherit (dirs) screenshots;
   autostart = writeScript "xmonad-autostart" scripts.autostart;
 
   stoggle = writeScript "xmonad-stoggle" scripts.stoggle;
@@ -153,7 +154,7 @@ in
     , ( ( myModKey                              , xK_Print                )
       , spawn "maim -u \
         \ | png2ff | xz -9 - \
-        \ > ~/Pictures/shots/$(date +%m.%d.%y_%I.%M.%S_%p).ff.xz"
+        \ > ~/${screenshots}/$(date +%m.%d.%y_%I.%M.%S_%p).ff.xz"
       )
     -- screenshot focused window
     , ( ( myModKey .|. shiftMask                , xK_Print                )
@@ -161,7 +162,7 @@ in
       , spawn "maim -u -i$(xdotool getactivewindow) \
         \ | png2ff \
         \ | xz -9 - \
-        \ > ~/Pictures/shots/$(date +%m.%d.%y_%I.%M.%S_%p).ff.xz"
+        \ > ~/${screenshots}/$(date +%m.%d.%y_%I.%M.%S_%p).ff.xz"
       )
     -- screenshot selection to clipboard
     , ( ( myModKey .|. controlMask              , xK_Print                )
@@ -175,7 +176,7 @@ in
       , spawn "maim -s -u \
         \ | png2ff \
         \ | xz -9 - \
-        \ > ~/Pictures/shots/$(date +%m.%d.%y_%I.%M.%S_%p).ff.xz"
+        \ > ~/${screenshots}/$(date +%m.%d.%y_%I.%M.%S_%p).ff.xz"
       )
     -- screenshot selection to imgur and paste url in clipboard
     , ( ( myModKey .|. shiftMask                , xK_i                    )

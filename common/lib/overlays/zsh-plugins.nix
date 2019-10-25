@@ -1,4 +1,4 @@
-{ ... }:
+{ dirs, ... }:
 self: super: {
-  zsh-plugins = super.callPackage ./pkgs/zsh-plugins.nix {};
+  zsh-plugins = super.callPackage "${dirs.pkgs}/zsh-plugins.nix" {};
 }

@@ -1,4 +1,4 @@
-{ ... }:
+{ dirs, ... }:
 self: super: {
-  passdmenu = super.callPackage ./pkgs/passdmenu.nix {};
+  passdmenu = super.callPackage "${dirs.pkgs}/passdmenu.nix" {};
 }
