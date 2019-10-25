@@ -6,7 +6,6 @@ let
 
     isactive=$(${systemd}/bin/systemctl is-active network-online.target)
 
-    echo $isactive
     if [[ $isactive == "inactive" ]] && ${iputils}/bin/ping -c1 nrdxp.dev &>/dev/null; then
       ${systemd}/bin/systemctl start network-online.target
     elif [[ $isactive == "active" ]] && ! ${iputils}/bin/ping -c1 nrdxp.dev &>/dev/null; then
