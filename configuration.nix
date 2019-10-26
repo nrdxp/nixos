@@ -1,9 +1,8 @@
-args@{ config
-, usr ? config.lib
-, dirs ? import ./lib/directories.nix
-, ...
-}:
+args@{ config, ... }:
 {
+  _module.args.usr = config.lib;
+  _module.args.dirs = import ./lib/directories.nix;
+
   imports = [
     # bare minimum
     ./common.nix
