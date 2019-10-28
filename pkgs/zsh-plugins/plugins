@@ -1,0 +1,16 @@
+sharat87/zsh-vim-mode
+Tarrasch/zsh-mcd
+robbyrussell/oh-my-zsh path:plugins/extract
+nrdxp/oh-my-zsh branch:sudo-redirection path:plugins/sudo
+willghatch/zsh-cdr
+mafredri/zsh-async
+zsh-users/zsh-completions
+spwhitt/nix-zsh-completions
+caarlos0/ports kind:path
+Tarrasch/zsh-functional
+zpm-zsh/autoenv
+chriskempson/base16-shell
+sindresorhus/pure
+chisui/zsh-nix-shell
+zsh-users/zsh-syntax-highlighting
+zsh-users/zsh-history-substring-search

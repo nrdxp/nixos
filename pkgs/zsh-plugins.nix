@@ -2,8 +2,8 @@
 stdenv.mkDerivation rec
 {
   name = "zsh-plugins-${version}";
-  version = "09.22.12";
-  src = ./zsh-plugins.tar.gz;
+  version = "10-27-2019";
+  src = ./zsh-plugins;
   buildInputs = [ antibody git cacert findutils patchelf ];
 
   installPhase = ''
