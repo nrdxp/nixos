@@ -110,10 +110,8 @@ let
 
     firstPass :: Path -> AttrSet */
     firstPass = dir: listToAttrs (
-      map prepAttr (
-        map (basename: dir + "/${basename}") (
-          attrNames (applyFilter dir)
-        )
+      map (prepAttr (basename: dir + "/${basename}")) (
+        attrNames (applyFilter dir)
       )
     );
 
